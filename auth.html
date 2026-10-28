@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Deadlock Plus — аккаунт</title>
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Exo+2:wght@700;800&family=Fraunces:opsz,wght@9..144,700&family=Onest:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+.or{display:flex;align-items:center;gap:12px;margin:26px 0 0;color:var(--muted);font:800 12px "Exo 2",sans-serif;letter-spacing:.2em;text-transform:uppercase}
+.or::before,.or::after{content:"";flex:1;height:2px;background:rgba(255,255,255,.35)}
+.form .btn{justify-content:center;margin-top:8px}
+</style>
+</head>
+<body>
+<canvas class="water" aria-hidden="true"></canvas>
+<canvas class="bubbles" aria-hidden="true"></canvas>
+<header class="top solid"><div class="wrap"><a class="brand" href="./" aria-label="Deadlock Plus"><img src="assets/icon.svg" alt=""><span class="tag">Deadlock Plus</span></a></div></header>
+<main class="page"><div class="card" id="box"></div></main>
+<script>
+// Page the e-mail links (confirm address, reset password) lead to. Supabase puts the session in the
+// address fragment; it is read once, removed from the address bar and kept only in memory.
+const SUPABASE_URL = "https://sazdxtxhqqzrapinymha.supabase.co";
+const SUPABASE_KEY = "sb_publishable_n8Js6ldrDGcePWd8L4CfhA_6kFVVYni"; // public key, made to be shipped
+const frag = location.hash.replace(/^#/, "");
+const q = new URLSearchParams(frag || location.search.replace(/^\?/, ""));
+if (frag) history.replaceState(null, "", location.pathname);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const mobile = /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+const appLink = frag ? "deadlockplus://auth#" + frag : "deadlockplus://auth";
+const box = document.getElementById("box");
+const openBtn = (label) => `<a class="btn red" href="${esc(appLink)}">${label}</a>`;
+// draws a state: a cut-out title, a black panel of text, then buttons or a form
+const show = (title, text, rest = "") => {
+  box.innerHTML = `<h1 data-cut="${esc(title)}"></h1><div class="panel">${text}</div>${rest}`;
+  if (window.cutLetters) window.cutLetters(box);
+};
+
+const type = q.get("type");
+const error = q.get("error_description") || q.get("error");
+const access = q.get("access_token");
+
+if (error) {
+  const expired = /expired|invalid/i.test(error);
+  show("Ссылка не сработала", `<p>${expired ? "Ссылка из письма устарела или уже использована." : esc(error)} Открой Deadlock Plus и запроси новое письмо — на экране входа или через «Забыли пароль?».</p>`,
+    `<div class="cta">${openBtn("Открыть Deadlock Plus")}<a class="btn" href="./">На сайт</a></div>`);
+} else if (access && type === "recovery") {
+  show("Новый пароль", `<p>Задай новый пароль для аккаунта Deadlock Plus.</p>
+    <div class="form"><label>Новый пароль<input id="p1" type="password" autocomplete="new-password" placeholder="минимум 8 символов, буквы и цифры"></label>
+      <label>Ещё раз<input id="p2" type="password" autocomplete="new-password"></label>
+      <button class="btn red" id="save">Сохранить пароль</button><div class="err" id="err"></div></div>`,
+    mobile ? "" : `<div class="or">или</div><div class="cta">${openBtn("Задать в Deadlock Plus")}</div>`);
+  const save = async () => {
+    const a = document.getElementById("p1").value, b = document.getElementById("p2").value, err = document.getElementById("err");
+    err.textContent = "";
+    if (a !== b) return (err.textContent = "Пароли не совпадают.");
+    if (a.length < 8 || !/\p{L}/u.test(a) || !/\d/.test(a)) return (err.textContent = "Пароль: минимум 8 символов, буквы и цифры.");
+    const btn = document.getElementById("save");
+    btn.disabled = true;
+    try {
+      const r = await fetch(SUPABASE_URL + "/auth/v1/user", { method: "PUT", headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + access, "Content-Type": "application/json" }, body: JSON.stringify({ password: a }) });
+      if (!r.ok) {
+        const j = await r.json().catch(() => ({}));
+        throw new Error(/same_password/.test(j.error_code) ? "Новый пароль совпадает со старым." : /weak/.test(j.error_code) ? "Пароль слишком простой." : r.status === 401 ? "Ссылка устарела — запроси новое письмо." : "Не получилось, попробуй ещё раз.");
+      }
+      show("Пароль изменён", "<p>Теперь входи в Deadlock Plus с новым паролем.</p>",
+        `<div class="cta">${mobile ? `<a class="btn" href="./">На сайт</a>` : `<a class="btn red" href="deadlockplus://auth">Открыть Deadlock Plus</a>`}</div>`);
+    } catch (e) {
+      err.textContent = e.message;
+      btn.disabled = false;
+    }
+  };
+  document.getElementById("save").onclick = save;
+  box.querySelectorAll("input").forEach((i) => (i.onkeydown = (e) => { if (e.key === "Enter") save(); }));
+} else if (access) {
+  show("Почта подтверждена", mobile
+    ? "<p>Готово! Открой Deadlock Plus на компьютере и войди со своей почтой и паролем.</p>"
+    : "<p>Готово! Нажми кнопку — Deadlock Plus откроется и <b>сам войдёт в аккаунт</b>. Браузер спросит «Открыть Deadlock Plus?» — разреши.</p>",
+    mobile ? `<div class="cta"><a class="btn" href="./">На сайт</a></div>`
+      : `<div class="cta">${openBtn("Открыть Deadlock Plus")}</div><small>Не открывается? Запусти Deadlock Plus сам и войди с почтой и паролем.</small>`);
+} else {
+  show("Аккаунт", "<p>Эта страница открывается по ссылке из письма Deadlock Plus — чтобы подтвердить почту или задать новый пароль.</p>",
+    `<div class="cta"><a class="btn red" href="./">На главную</a></div>`);
+}
+</script>
+<script src="fx.js"></script>
+</body>
+</html>
