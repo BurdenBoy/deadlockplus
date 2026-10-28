@@ -2,6 +2,23 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.5.0",
+    date: "2026-10-28",
+    groups: [
+      {
+        kind: "new",
+        app: "launcher",
+        title: ["Мета: всё о герое", "Meta: everything about a hero"],
+        items: [
+          ["Против кого: с кем герою тяжело и кого он побеждает легко — по живой статистике", "Matchups: who the hero struggles against and who it beats easily — from live stats"],
+          ["Напарники: с кем герой выигрывает чаще и с кем реже", "Teammates: who the hero wins more and less often with"],
+          ["Прокачка: самый частый порядок способностей и тот, с которым чаще побеждают, со средним временем", "Abilities: the most common ability order and the one that wins most, with average times"],
+          ["Всё учитывает выбранный ранг и период", "Everything follows the chosen rank and period"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.4.3",
     date: "2026-10-28",
     groups: [
