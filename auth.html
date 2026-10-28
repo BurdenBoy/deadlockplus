@@ -14,11 +14,16 @@
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
-<nav class="nav solid"><div class="wrap"><a class="brand" href="./"><img src="assets/icon.svg" alt="" width="38" height="38">Deadlock <span>Plus</span></a></div></nav>
+<nav class="nav solid"><div class="pill">
+  <a class="brand" href="./"><img src="assets/icon.svg" alt="" width="38" height="38">Deadlock <span>Plus</span></a>
+  <div class="links"><a href="./#features">Функции</a><a href="./#shots">Лаунчер</a><a href="./#tools">Инструменты</a><a href="changelog.html">Изменения</a><a href="./#faq">Вопросы</a></div>
+  <a class="btn acc small" href="./#download">Скачать</a>
+</div></nav>
 <main class="page">
   <div class="rings" aria-hidden="true"></div>
   <div class="glass" id="box"></div>
 </main>
+<script src="lang.js"></script>
 <script>
 // Page the e-mail links (confirm address, reset password) lead to. Supabase puts the session in the
 // address fragment; it is read once, removed from the address bar and kept only in memory.
@@ -34,6 +39,7 @@ const OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 const KEY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/></svg>';
 const BAD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>';
 const box = document.getElementById("box");
+const T = window.T;
 const openBtn = (label) => `<a class="btn acc big" href="${esc(appLink)}">${label}</a>`;
 
 const type = q.get("type");
@@ -42,31 +48,31 @@ const access = q.get("access_token");
 
 if (error) {
   const expired = /expired|invalid/i.test(error);
-  box.innerHTML = `<div class="ic">${BAD}</div><h1>Ссылка не сработала</h1>
-    <p>${expired ? "Ссылка из письма устарела или уже использована." : esc(error)} Открой Deadlock Plus и запроси новое письмо — на экране входа или через «Забыли пароль?».</p>
-    <div class="cta">${openBtn("Открыть Deadlock Plus")}<a class="btn big" href="./">На сайт</a></div>`;
+  box.innerHTML = `<div class="ic">${BAD}</div><h1>${T("Ссылка не сработала", "The link didn’t work")}</h1>
+    <p>${expired ? T("Ссылка из письма устарела или уже использована.", "The link from the e-mail has expired or was already used.") : esc(error)} ${T("Открой Deadlock Plus и запроси новое письмо — на экране входа или через «Забыли пароль?».", "Open Deadlock Plus and ask for a new e-mail — on the sign-in screen or via “Forgot password?”.")}</p>
+    <div class="cta">${openBtn(T("Открыть Deadlock Plus", "Open Deadlock Plus"))}<a class="btn big" href="./">${T("На сайт", "To the site")}</a></div>`;
 } else if (access && type === "recovery") {
-  box.innerHTML = `<div class="ic">${KEY}</div><h1>Новый пароль</h1>
-    <p>Задай новый пароль для аккаунта Deadlock Plus.</p>
-    <div class="form"><label>Новый пароль<input id="p1" type="password" autocomplete="new-password" placeholder="минимум 8 символов, буквы и цифры"></label>
-      <label>Ещё раз<input id="p2" type="password" autocomplete="new-password"></label>
-      <button class="btn acc big" id="save">Сохранить пароль</button><div class="err" id="err"></div></div>
-    ${mobile ? "" : `<div class="or">или</div><div class="cta" style="margin-top:8px">${openBtn("Задать в Deadlock Plus")}</div>`}`;
+  box.innerHTML = `<div class="ic">${KEY}</div><h1>${T("Новый пароль", "New password")}</h1>
+    <p>${T("Задай новый пароль для аккаунта Deadlock Plus.", "Set a new password for your Deadlock Plus account.")}</p>
+    <div class="form"><label>${T("Новый пароль", "New password")}<input id="p1" type="password" autocomplete="new-password" placeholder="${T("минимум 8 символов, буквы и цифры", "at least 8 characters, letters and digits")}"></label>
+      <label>${T("Ещё раз", "Again")}<input id="p2" type="password" autocomplete="new-password"></label>
+      <button class="btn acc big" id="save">${T("Сохранить пароль", "Save password")}</button><div class="err" id="err"></div></div>
+    ${mobile ? "" : `<div class="or">${T("или", "or")}</div><div class="cta" style="margin-top:8px">${openBtn(T("Задать в Deadlock Plus", "Set it in Deadlock Plus"))}</div>`}`;
   const save = async () => {
     const a = document.getElementById("p1").value, b = document.getElementById("p2").value, err = document.getElementById("err");
     err.textContent = "";
-    if (a !== b) return (err.textContent = "Пароли не совпадают.");
-    if (a.length < 8 || !/\p{L}/u.test(a) || !/\d/.test(a)) return (err.textContent = "Пароль: минимум 8 символов, буквы и цифры.");
+    if (a !== b) return (err.textContent = T("Пароли не совпадают.", "The passwords don’t match."));
+    if (a.length < 8 || !/\p{L}/u.test(a) || !/\d/.test(a)) return (err.textContent = T("Пароль: минимум 8 символов, буквы и цифры.", "Password: at least 8 characters, letters and digits."));
     const btn = document.getElementById("save");
     btn.disabled = true;
     try {
       const r = await fetch(SUPABASE_URL + "/auth/v1/user", { method: "PUT", headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + access, "Content-Type": "application/json" }, body: JSON.stringify({ password: a }) });
       if (!r.ok) {
         const j = await r.json().catch(() => ({}));
-        throw new Error(/same_password/.test(j.error_code) ? "Новый пароль совпадает со старым." : /weak/.test(j.error_code) ? "Пароль слишком простой." : r.status === 401 ? "Ссылка устарела — запроси новое письмо." : "Не получилось, попробуй ещё раз.");
+        throw new Error(/same_password/.test(j.error_code) ? T("Новый пароль совпадает со старым.", "The new password is the same as the old one.") : /weak/.test(j.error_code) ? T("Пароль слишком простой.", "The password is too simple.") : r.status === 401 ? T("Ссылка устарела — запроси новое письмо.", "The link has expired — ask for a new e-mail.") : T("Не получилось, попробуй ещё раз.", "That didn’t work, try again."));
       }
-      box.innerHTML = `<div class="ic ok">${OK}</div><h1>Пароль изменён</h1><p>Теперь входи в Deadlock Plus с новым паролем.</p>
-        <div class="cta">${mobile ? `<a class="btn big" href="./">На сайт</a>` : `<a class="btn acc big" href="deadlockplus://auth">Открыть Deadlock Plus</a>`}</div>`;
+      box.innerHTML = `<div class="ic ok">${OK}</div><h1>${T("Пароль изменён", "Password changed")}</h1><p>${T("Теперь входи в Deadlock Plus с новым паролем.", "Sign in to Deadlock Plus with the new password from now on.")}</p>
+        <div class="cta">${mobile ? `<a class="btn big" href="./">${T("На сайт", "To the site")}</a>` : `<a class="btn acc big" href="deadlockplus://auth">${T("Открыть Deadlock Plus", "Open Deadlock Plus")}</a>`}</div>`;
     } catch (e) {
       err.textContent = e.message;
       btn.disabled = false;
@@ -75,16 +81,16 @@ if (error) {
   document.getElementById("save").onclick = save;
   box.querySelectorAll("input").forEach((i) => (i.onkeydown = (e) => { if (e.key === "Enter") save(); }));
 } else if (access) {
-  box.innerHTML = `<div class="ic ok">${OK}</div><h1>Почта подтверждена</h1>
+  box.innerHTML = `<div class="ic ok">${OK}</div><h1>${T("Почта подтверждена", "E-mail confirmed")}</h1>
     ${mobile
-      ? `<p>Готово! Открой Deadlock Plus на компьютере и войди со своей почтой и паролем.</p><div class="cta"><a class="btn big" href="./">На сайт</a></div>`
-      : `<p>Готово! Нажми кнопку — Deadlock Plus откроется и сам войдёт в аккаунт. Браузер спросит «Открыть Deadlock Plus?» — разреши.</p>
-         <div class="cta">${openBtn("Открыть Deadlock Plus")}</div>
-         <small>Не открывается? Запусти Deadlock Plus сам и войди с почтой и паролем.</small>`}`;
+      ? `<p>${T("Готово! Открой Deadlock Plus на компьютере и войди со своей почтой и паролем.", "Done! Open Deadlock Plus on your PC and sign in with your e-mail and password.")}</p><div class="cta"><a class="btn big" href="./">${T("На сайт", "To the site")}</a></div>`
+      : `<p>${T("Готово! Нажми кнопку — Deadlock Plus откроется и сам войдёт в аккаунт. Браузер спросит «Открыть Deadlock Plus?» — разреши.", "Done! Press the button — Deadlock Plus opens and signs you in. The browser will ask “Open Deadlock Plus?” — allow it.")}</p>
+         <div class="cta">${openBtn(T("Открыть Deadlock Plus", "Open Deadlock Plus"))}</div>
+         <small>${T("Не открывается? Запусти Deadlock Plus сам и войди с почтой и паролем.", "Doesn’t open? Start Deadlock Plus yourself and sign in with your e-mail and password.")}</small>`}`;
 } else {
-  box.innerHTML = `<div class="ic">${KEY}</div><h1>Аккаунт Deadlock Plus</h1>
-    <p>Эта страница открывается по ссылке из письма — для подтверждения почты или нового пароля.</p>
-    <div class="cta"><a class="btn acc big" href="./">На главную</a></div>`;
+  box.innerHTML = `<div class="ic">${KEY}</div><h1>${T("Аккаунт Deadlock Plus", "Deadlock Plus account")}</h1>
+    <p>${T("Эта страница открывается по ссылке из письма — для подтверждения почты или нового пароля.", "This page opens from a link in an e-mail — to confirm your address or set a new password.")}</p>
+    <div class="cta"><a class="btn acc big" href="./">${T("На главную", "Home")}</a></div>`;
 }
 </script>
 <script src="fx.js"></script>

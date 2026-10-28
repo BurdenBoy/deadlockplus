@@ -5,8 +5,10 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const T = window.T || ((ru) => ru), LOC = window.LOC || "ru-RU";
+  const pct1 = (x) => (x * 100).toFixed(1).replace(".", LOC === "ru-RU" ? "," : ".");
   const copy = (t, btn) => {
-    navigator.clipboard.writeText(t).then(() => { const o = btn.textContent; btn.textContent = "Скопировано ✓"; setTimeout(() => (btn.textContent = o), 1600); }).catch(() => {});
+    navigator.clipboard.writeText(t).then(() => { const o = btn.textContent; btn.textContent = T("Скопировано ✓", "Copied ✓"); setTimeout(() => (btn.textContent = o), 1600); }).catch(() => {});
   };
 
   // ---------- download counter ----------
@@ -15,7 +17,7 @@
     .then((rels) => {
       const n = rels.reduce((a, r) => a + (r.assets || []).reduce((b, x) => b + (x.download_count || 0), 0), 0);
       const el = $("#st-dl");
-      if (el) el.textContent = n.toLocaleString("ru-RU");
+      if (el) el.textContent = n.toLocaleString(LOC);
       const latest = rels.find((r) => !r.draft && !r.prerelease);
       if (latest && $("#st-ver")) $("#st-ver").textContent = latest.tag_name;
     })
@@ -23,12 +25,12 @@
   function countUp(el, n) {
     const from = +String(el.dataset.n || 0);
     el.dataset.n = n;
-    if (reduce || !from) { el.textContent = n.toLocaleString("ru-RU"); if (from && from !== n) bump(el); if (!from && !reduce) roll(el, 0, n); return; }
+    if (reduce || !from) { el.textContent = n.toLocaleString(LOC); if (from && from !== n) bump(el); if (!from && !reduce) roll(el, 0, n); return; }
     if (from !== n) { roll(el, from, n); bump(el); }
   }
   function roll(el, a, b) {
     const t0 = performance.now(), D = 1200;
-    const step = (t) => { const k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(a + (b - a) * e).toLocaleString("ru-RU"); if (k < 1) requestAnimationFrame(step); };
+    const step = (t) => { const k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(a + (b - a) * e).toLocaleString(LOC); if (k < 1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
   }
   const bump = (el) => { el.classList.add("bump"); setTimeout(() => el.classList.remove("bump"), 900); };
@@ -50,29 +52,29 @@
       ]);
       const s = (Array.isArray(g) ? g[0] : g) || {};
       countUp($("#lv-matches"), s.total_matches || 0);
-      $("#lv-matches-s").textContent = `≈ ${Math.round((s.total_matches || 0) / 24).toLocaleString("ru-RU")} в час`;
+      $("#lv-matches-s").textContent = T(`≈ ${Math.round((s.total_matches || 0) / 24).toLocaleString(LOC)} в час`, `≈ ${Math.round((s.total_matches || 0) / 24).toLocaleString(LOC)} an hour`);
       countUp($("#lv-players"), s.total_players || 0);
       const d = s.avg_duration_s || 0;
       $("#lv-dur").textContent = `${Math.floor(d / 60)}:${String(Math.round(d % 60)).padStart(2, "0")}`;
-      $("#lv-kda").textContent = `в среднем ${(s.avg_kills || 0).toFixed(1)} / ${(s.avg_deaths || 0).toFixed(1)} / ${(s.avg_assists || 0).toFixed(1)}`;
+      $("#lv-kda").textContent = `${T("в среднем", "on average")} ${(s.avg_kills || 0).toFixed(1)} / ${(s.avg_deaths || 0).toFixed(1)} / ${(s.avg_assists || 0).toFixed(1)}`;
       // best win rate among heroes with enough games, pulled toward 50% for small samples
       const best = hs.filter((r) => HERO_NAMES[r.hero_id] && r.matches >= 300)
         .map((r) => ({ ...r, s: (r.wins + 250) / (r.matches + 500) }))
         .sort((a, b) => b.s - a.s)[0];
       if (best) {
         $("#lv-hero").textContent = HERO_NAMES[best.hero_id];
-        $("#lv-hero-s").textContent = `${((best.wins / best.matches) * 100).toFixed(1).replace(".", ",")}% побед · ${best.matches.toLocaleString("ru-RU")} матчей`;
+        $("#lv-hero-s").textContent = `${pct1(best.wins / best.matches)}% ${T("побед", "win rate")} · ${best.matches.toLocaleString(LOC)} ${T("матчей", "matches")}`;
       }
       liveAt = Date.now();
       ago();
     } catch (e) {
-      $("#lv-at").textContent = "нет связи с deadlock-api";
+      $("#lv-at").textContent = T("нет связи с deadlock-api", "can't reach deadlock-api");
     }
   }
   function ago() {
     if (!liveAt) return;
     const s = Math.round((Date.now() - liveAt) / 1000);
-    $("#lv-at").textContent = s < 10 ? "обновлено только что" : `обновлено ${s} с назад`;
+    $("#lv-at").textContent = s < 10 ? T("обновлено только что", "updated just now") : T(`обновлено ${s} с назад`, `updated ${s}s ago`);
   }
   if ($("#lv-matches")) {
     live();
@@ -87,11 +89,11 @@
     let i = 0;
     const cycle = () => {
       const name = MODS[i++ % MODS.length];
-      $(".dt-t", toast).textContent = "Устанавливаю мод";
+      $(".dt-t", toast).textContent = T("Устанавливаю мод", "Installing mod");
       $(".dt-s", toast).textContent = name;
       toast.className = "demo-toast show";
       requestAnimationFrame(() => requestAnimationFrame(() => toast.classList.add("run")));
-      setTimeout(() => { toast.classList.add("done"); $(".dt-t", toast).textContent = "Мод установлен"; $(".dt-s", toast).textContent = name + " — готов к игре"; }, 2000);
+      setTimeout(() => { toast.classList.add("done"); $(".dt-t", toast).textContent = T("Мод установлен", "Mod installed"); $(".dt-s", toast).textContent = name + T(" — готов к игре", " is ready to play"); }, 2000);
       setTimeout(() => (toast.className = "demo-toast"), 4600);
     };
     new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { io.disconnect(); cycle(); setInterval(cycle, 7000); } }, { threshold: 0.4 }).observe(toast.closest(".screen"));
@@ -110,7 +112,7 @@
     fetch("https://api.deadlock-api.com/v1/assets/heroes?only_active=true").then((r) => r.json()).then((h) => {
       HEROES = h.filter((x) => x.player_selectable && !x.disabled).map((x) => ({ name: x.name, img: (x.images || {}).icon_hero_card || (x.images || {}).icon_image_small || "" })).filter((x) => x.img);
       fill(null);
-    }).catch(() => { $("#roll-name").textContent = "нет связи"; });
+    }).catch(() => { $("#roll-name").textContent = T("нет связи", "offline"); });
   }
   function fill(pick) {
     const list = [];
@@ -134,7 +136,7 @@
     track.getBoundingClientRect(); // restart the transition from 0
     track.style.transition = reduce ? "none" : "transform 3.6s cubic-bezier(.12,.75,.14,1)";
     track.style.transform = `translateX(${-target}px)`;
-    setTimeout(() => { $("#roll-name").textContent = pick.name; spinning = false; go.disabled = false; go.textContent = "Ещё раз"; }, reduce ? 0 : 3700);
+    setTimeout(() => { $("#roll-name").textContent = pick.name; spinning = false; go.disabled = false; go.textContent = T("Ещё раз", "Again"); }, reduce ? 0 : 3700);
   };
 
   // ---------- crosshair generator ----------
@@ -168,13 +170,13 @@
   // ---------- autoexec builder ----------
   function cfgText() {
     const v = (k) => { const el = $(`[data-c="${k}"]`); return el.type === "checkbox" ? el.checked : el.value.trim(); };
-    const lines = ["// autoexec.cfg — собрано на burdenboy.github.io/deadlockplus"];
+    const lines = [T("// autoexec.cfg — собрано на burdenboy.github.io/deadlockplus", "// autoexec.cfg — built at burdenboy.github.io/deadlockplus")];
     if (v("aspect")) lines.push(`r_aspectratio "${v("aspect")}"`);
     if (v("solo")) lines.push("mm_prefer_solo_only 1");
     if (v("hp")) lines.push("citadel_unit_status_use_new true");
     if (v("region") !== "") lines.push(`citadel_region_override ${v("region")}`);
     if (v("fps") && +v("fps") > 0) lines.push(`fps_max ${Math.min(999, Math.round(+v("fps")))}`);
-    if (lines.length === 1) lines.push("// выбери настройки слева");
+    if (lines.length === 1) lines.push(T("// выбери настройки слева", "// pick settings on the left"));
     return lines.join("\n") + "\n";
   }
   function cfgDraw() { $("#cfg-code").innerHTML = esc(cfgText()).replace(/^(\/\/.*)$/gm, '<span class="c">$1</span>'); }

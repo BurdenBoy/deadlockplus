@@ -6,6 +6,8 @@
   const D = window.DLP || { features: [], icons: {} };
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  // feature text in the page's language (features.js carries both)
+  const tx = (f, k) => (window.LANG === "en" && f[k + "_en"]) || f[k];
   const svgIcon = (name) => `<svg viewBox="0 0 24 24" aria-hidden="true">${D.icons[name] || ""}</svg>`;
 
   // ---------- title letters drop in one by one ----------
@@ -47,7 +49,7 @@
     const F = D.features, grid = $(".sel-grid", sel), art = $(".art", sel), poster = $("#sp");
     const name = $("#sp-name"), num = $("#sp-num"), tags = $("#sp-tags"), abs = $("#sp-abs"), lead = $("#si-lead"), desc = $("#si-desc"), bar = $(".bar", sel);
     const T = 5000;
-    grid.innerHTML = F.map((f, i) => `<button class="pick" role="tab" data-i="${i}" aria-label="${f.name}"><img src="assets/cards/${f.id}.svg" alt="" width="240" height="320"><span class="nm">${f.name}</span></button>`).join("");
+    grid.innerHTML = F.map((f, i) => `<button class="pick" role="tab" data-i="${i}" aria-label="${tx(f, "name")}"><img src="assets/cards/${f.id}.svg" alt="" width="240" height="320"><span class="nm">${tx(f, "name")}</span></button>`).join("");
     bar.innerHTML = F.map(() => "<i></i>").join("");
     F.forEach((f) => { new Image().src = `assets/posters/${f.id}.svg`; });
     const picks = $$(".pick", grid), bars = $$("i", bar);
@@ -70,11 +72,11 @@
       requestAnimationFrame(() => requestAnimationFrame(() => img.classList.remove("out")));
       $$("img", art).slice(0, -1).forEach((old) => { old.classList.add("out"); setTimeout(() => old.remove(), 700); });
       num.textContent = `${String(i + 1).padStart(2, "0")} / ${String(F.length).padStart(2, "0")}`;
-      name.textContent = f.name;
-      tags.innerHTML = f.tags.map((t) => `<span>${t}</span>`).join("");
+      name.textContent = tx(f, "name");
+      tags.innerHTML = tx(f, "tags").map((t) => `<span>${t}</span>`).join("");
       abs.innerHTML = f.ab.map((a) => `<span class="ab">${svgIcon(a)}</span>`).join("");
-      lead.textContent = f.lead;
-      desc.textContent = f.desc.join(" ");
+      lead.textContent = tx(f, "lead");
+      desc.textContent = tx(f, "desc").join(" ");
       [name, tags, abs].forEach(replay);
     };
     const schedule = () => {

@@ -38,6 +38,7 @@
   <a href="https://github.com/BurdenBoy/deadlockplus/releases">Все версии</a>
 </div></footer>
 <script src="assets/changelog.js"></script>
+<script src="lang.js"></script>
 <script src="fx.js"></script>
 <script>
 // Changelog page: the app's own changelog.js, newest first, with search, a launcher / overlay
@@ -45,21 +46,22 @@
 (function () {
   const log = window.CHANGELOG || [];
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const KIND = { new: "Новое", improved: "Улучшено", fix: "Исправлено" };
-  const APP = { all: "Всё", launcher: "Лаунчер", overlay: "Оверлей в игре" };
+  const EN = window.LANG === "en", L = EN ? 1 : 0, T = window.T || ((ru) => ru);
+  const KIND = { new: T("Новое", "New"), improved: T("Улучшено", "Improved"), fix: T("Исправлено", "Fixed") };
+  const APP = { all: T("Всё", "All"), launcher: T("Лаунчер", "Launcher"), overlay: T("Оверлей в игре", "In-game overlay") };
   const F = { q: "", app: "all", kind: "all" };
   const appOf = (g, it) => it[2] || g.app || "both";
   const okApp = (a) => F.app === "all" || a === "both" || a === F.app;
   // every change as a flat row, for counting
-  const rows = log.flatMap((r) => r.groups.flatMap((g) => g.items.map((it) => ({ v: r.v, kind: g.kind, app: appOf(g, it), text: it[0] }))));
-  const date = (d) => (d ? new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", year: "numeric" }).format(new Date(d + "T12:00:00")) : "");
+  const rows = log.flatMap((r) => r.groups.flatMap((g) => g.items.map((it) => ({ v: r.v, kind: g.kind, app: appOf(g, it), text: it[L] }))));
+  const date = (d) => (d ? new Intl.DateTimeFormat(EN ? "en-GB" : "ru-RU", { day: "numeric", month: "long", year: "numeric" }).format(new Date(d + "T12:00:00")) : "");
   const mark = (t) => { const e = esc(t); if (!F.q) return e; const i = e.toLowerCase().indexOf(esc(F.q).toLowerCase()); return i < 0 ? e : e.slice(0, i) + "<mark>" + e.slice(i, i + esc(F.q).length) + "</mark>" + e.slice(i + esc(F.q).length); };
   const plural = (n, a, b, c) => { const x = n % 10, y = n % 100; return x === 1 && y !== 11 ? a : x >= 2 && x <= 4 && (y < 12 || y > 14) ? b : c; };
 
   function controls() {
     const vis = rows.filter((r) => okApp(r.app) && (!F.q || r.text.toLowerCase().includes(F.q.toLowerCase())));
     document.getElementById("cl-app").innerHTML = Object.entries(APP).map(([k, l]) => `<button data-app="${k}" class="${F.app === k ? "on" : ""}">${l}</button>`).join("");
-    document.getElementById("cl-kind").innerHTML = [["all", "Все", vis.length], ...Object.entries(KIND).map(([k, l]) => [k, l, vis.filter((r) => r.kind === k).length])]
+    document.getElementById("cl-kind").innerHTML = [["all", T("Все", "All"), vis.length], ...Object.entries(KIND).map(([k, l]) => [k, l, vis.filter((r) => r.kind === k).length])]
       .map(([k, l, n]) => `<button data-kind="${k}" class="${F.kind === k ? "on" : ""}">${l}<small>${n}</small></button>`).join("");
     document.querySelectorAll("[data-app]").forEach((b) => (b.onclick = () => { F.app = b.dataset.app; draw(); }));
     document.querySelectorAll("[data-kind]").forEach((b) => (b.onclick = () => { F.kind = b.dataset.kind; draw(); }));
@@ -70,24 +72,24 @@
     const q = F.q.toLowerCase();
     const html = log.map((r) => {
       const groups = r.groups.filter((g) => F.kind === "all" || g.kind === F.kind).map((g) => {
-        const items = g.items.filter((it) => okApp(appOf(g, it)) && (!q || it[0].toLowerCase().includes(q)));
+        const items = g.items.filter((it) => okApp(appOf(g, it)) && (!q || it[L].toLowerCase().includes(q)));
         if (!items.length) return "";
         const app = g.app && g.app !== "both" ? `<span class="cl-app">${APP[g.app]}</span>` : "";
-        return `<div class="cl-g"><h4><span class="cl-k ${g.kind}">${KIND[g.kind] || ""}</span>${esc(g.title[0])}${app}</h4><ul>${items.map((it) => `<li>${mark(it[0])}</li>`).join("")}</ul></div>`;
+        return `<div class="cl-g"><h4><span class="cl-k ${g.kind}">${KIND[g.kind] || ""}</span>${esc(g.title[L])}${app}</h4><ul>${items.map((it) => `<li>${mark(it[L])}</li>`).join("")}</ul></div>`;
       }).join("");
       if (!groups) return "";
-      return `<section class="cl-v" id="v${esc(r.v)}"><div class="cl-vh"><h3>${esc(r.v)}</h3><small>${esc(date(r.date))}</small><a href="#v${esc(r.v)}" data-link="v${esc(r.v)}">ссылка</a></div>${groups}</section>`;
+      return `<section class="cl-v" id="v${esc(r.v)}"><div class="cl-vh"><h3>${esc(r.v)}</h3><small>${esc(date(r.date))}</small><a href="#v${esc(r.v)}" data-link="v${esc(r.v)}">${T("ссылка", "link")}</a></div>${groups}</section>`;
     }).join("");
-    document.getElementById("cl-list").innerHTML = html || `<div class="cl-empty">Ничего не нашлось</div>`;
+    document.getElementById("cl-list").innerHTML = html || `<div class="cl-empty">${T("Ничего не нашлось", "Nothing found")}</div>`;
     document.querySelectorAll("[data-link]").forEach((a) => (a.onclick = (e) => {
       e.preventDefault();
       const url = location.href.split("#")[0] + "#" + a.dataset.link;
       history.replaceState(null, "", "#" + a.dataset.link);
-      navigator.clipboard.writeText(url).then(() => { a.textContent = "скопировано ✓"; setTimeout(() => (a.textContent = "ссылка"), 1500); }).catch(() => {});
+      navigator.clipboard.writeText(url).then(() => { a.textContent = T("скопировано ✓", "copied ✓"); setTimeout(() => (a.textContent = T("ссылка", "link")), 1500); }).catch(() => {});
     }));
   }
 
-  document.getElementById("cl-sum").textContent = `${rows.length} ${plural(rows.length, "изменение", "изменения", "изменений")} в ${log.length} ${plural(log.length, "версии", "версиях", "версиях")}, новые сверху.`;
+  document.getElementById("cl-sum").textContent = EN ? `${rows.length} changes in ${log.length} versions, newest first.` : `${rows.length} ${plural(rows.length, "изменение", "изменения", "изменений")} в ${log.length} ${plural(log.length, "версии", "версиях", "версиях")}, новые сверху.`;
   let t = 0;
   document.getElementById("cl-q").oninput = (e) => { clearTimeout(t); t = setTimeout(() => { F.q = e.target.value.trim(); draw(); }, 150); };
   draw();
