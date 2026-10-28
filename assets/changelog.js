@@ -2,6 +2,22 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.5.1",
+    date: "2026-10-28",
+    groups: [
+      {
+        kind: "improved",
+        app: "launcher",
+        title: ["Широкие окна", "Wide windows"],
+        items: [
+          ["Скины героев: в ряду столько карточек, сколько помещается — на большом экране они больше не огромные", "Hero skins: as many cards per row as fit — no more huge cards on a big screen"],
+          ["Постер героя на страницах настроек стал уже и ниже", "The hero poster on settings pages is narrower and shorter"],
+          ["В панели героя — плитка «Найти скины», которая открывает магазин с поиском по герою", "The hero panel has a «Find skins» tile that opens the store searching for that hero"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.5.0",
     date: "2026-10-28",
     groups: [
