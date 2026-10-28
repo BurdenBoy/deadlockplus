@@ -2,6 +2,24 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.6.0",
+    date: "2026-10-29",
+    groups: [
+      {
+        kind: "new",
+        app: "launcher",
+        title: ["Разбор матча против твоего ранга", "Match review vs your rank"],
+        items: [
+          ["На графике душ — средний игрок твоего ранга на этом герое и отметки на 9, 15, 20 и 30 минуте: насколько ты богаче или беднее", "The souls chart shows the average player of your rank on this hero, with marks at 9, 15, 20 and 30 minutes: how far ahead or behind you were"],
+          ["«Откуда души»: линия, лес, герои и объекты — у тебя и в среднем по рангу, плюс души, потерянные при смертях", "«Where the souls came from»: lane, jungle, heroes and objectives — yours and your rank's average, plus souls lost on death"],
+          ["«Перевес команды по душам»: график разницы душ по ходу матча со сломанными строениями и мид-боссом", "«Team souls lead»: the souls difference over the match with destroyed buildings and the Mid Boss"],
+          ["«Сборка против ранга»: винрейт каждого твоего предмета на этом герое и предметы, с которыми на твоём ранге выигрывают чаще", "«Build vs your rank»: the win rate of each of your items on this hero and the items that win more at your rank"],
+          ["AI-тренер учитывает эти сравнения в разборе", "The AI coach uses these comparisons in its review"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.5.1",
     date: "2026-10-28",
     groups: [
