@@ -2,6 +2,21 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.4.3",
+    date: "2026-10-28",
+    groups: [
+      {
+        kind: "fix",
+        app: "launcher",
+        title: ["Исправлено", "Fixed"],
+        items: [
+          ["Скины героев: «Стандартный вид» показывает героя целиком, а не обрезанную голову", "Hero skins: «Default look» shows the whole hero instead of a cropped head"],
+          ["Меню слева стало чище — убрана подпись внизу", "The side menu is cleaner — the note at the bottom is gone"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.4.2",
     date: "2026-10-28",
     groups: [
