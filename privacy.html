@@ -3,40 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deadlock Plus — конфиденциальность</title>
+<title>Deadlock Plus — политика конфиденциальности</title>
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Exo+2:wght@700;800&family=Fraunces:opsz,wght@9..144,700&family=Onest:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Exo+2:wght@700;800&family=Onest:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<canvas class="water" aria-hidden="true"></canvas>
-<canvas class="bubbles" aria-hidden="true"></canvas>
-<header class="top solid"><div class="wrap"><a class="brand" href="./" aria-label="Deadlock Plus"><img src="assets/icon.svg" alt=""><span class="tag">Deadlock Plus</span></a><span class="sp"></span><a class="btn small" href="./">← На главную</a></div></header>
+<div class="grain" aria-hidden="true"></div>
+<nav class="nav solid"><div class="wrap"><a class="brand" href="./"><img src="assets/icon.svg" alt="" width="38" height="38">Deadlock <span>Plus</span></a></div></nav>
 <main class="doc">
-  <span class="tag light">Обновлено 28 октября 2026</span>
-  <h1 data-cut="Конфиденциальность" style="margin-top:16px"></h1>
+  <h1>Политика конфиденциальности</h1>
+  <p class="upd">Обновлено 28 октября 2026 г.</p>
 
-  <div class="panel"><h2>Что хранится в аккаунте</h2>
-    <p>Если ты создаёшь аккаунт Deadlock Plus, на сервере аккаунтов (Supabase, регион ЕС) хранятся адрес почты, ник, выбранный аватар и дата регистрации. Пароль хранится только в виде хеша — его не видит никто, включая нас. Аккаунт необязателен: программой можно пользоваться без него.</p></div>
+  <h2>Что хранится в аккаунте</h2>
+  <p>Если ты создаёшь аккаунт Deadlock Plus, на сервере аккаунтов (Supabase, регион ЕС) хранятся: адрес почты, ник, выбранный аватар и дата регистрации. Пароль хранится только в виде хеша — его не видит никто, включая нас. Аккаунт необязателен: программой можно пользоваться без него.</p>
 
-  <div class="panel"><h2>Что остаётся на компьютере</h2>
-    <ul><li>Сессия входа и ключ Claude API — в зашифрованном виде, средствами Windows.</li>
-      <li>Настройки, библиотека модов и номер аккаунта Steam (из настроек Steam) — в папке программы.</li></ul></div>
+  <h2>Что остаётся на твоём компьютере</h2>
+  <ul>
+    <li>Сессия входа и ключ Claude API — в зашифрованном виде, средствами Windows.</li>
+    <li>Настройки, библиотека модов, номер аккаунта Steam (берётся из настроек Steam) — в папке программы.</li>
+  </ul>
 
-  <div class="panel"><h2>Какие сервисы использует программа</h2>
-    <ul><li><b>deadlock-api</b> — публичная статистика матчей и героев.</li>
-      <li><b>GameBanana</b> — каталог и скачивание модов.</li>
-      <li><b>Anthropic (Claude)</b> — только если ты сам добавил ключ и задаёшь вопрос AI-тренеру. Отправляется статистика матча и твой вопрос; ники и ID игроков не отправляются.</li>
-      <li><b>deadlock.wiki</b> — картинки героев для экрана загрузки, один раз на героя.</li></ul>
-    <p style="margin-top:10px">Deadlock Plus не читает память игры и не вмешивается в её процесс.</p></div>
+  <h2>Какие сервисы использует программа</h2>
+  <ul>
+    <li><b>deadlock-api</b> — публичная статистика матчей и героев.</li>
+    <li><b>GameBanana</b> — каталог и скачивание модов.</li>
+    <li><b>Anthropic (Claude)</b> — только если ты сам добавил ключ и задаёшь вопрос AI-тренеру. Отправляется статистика матча и твой вопрос; ники и ID игроков не отправляются.</li>
+    <li><b>deadlock.wiki</b> — картинки героев для экрана загрузки, один раз на героя.</li>
+  </ul>
+  <p>Deadlock Plus не читает память игры и не вмешивается в её процесс.</p>
 
-  <div class="panel"><h2>Удаление аккаунта</h2>
-    <p>Напиши в <a href="https://github.com/Lopstik/deadlockplus/issues" style="color:#fff">разделе Issues на GitHub</a> (без почты и пароля в тексте) — удалим аккаунт и все связанные с ним данные. Выйти из аккаунта можно в Настройках лаунчера; сессия на компьютере при этом удаляется.</p></div>
+  <h2>Удаление аккаунта</h2>
+  <p>Напиши в <a href="https://github.com/Lopstik/deadlockplus/issues">разделе Issues на GitHub</a> (без почты и пароля в тексте) — удалим аккаунт и все связанные с ним данные. Выйти из аккаунта можно в Настройках лаунчера, сессия на компьютере при этом удаляется.</p>
 
-  <div class="panel"><h2>Прочее</h2>
-    <p>Deadlock — товарный знак Valve. Deadlock Plus — независимый проект и не связан с Valve.</p></div>
+  <h2>Прочее</h2>
+  <p>Deadlock — товарный знак Valve. Deadlock Plus — независимый проект и не связан с Valve.</p>
+  <p style="margin-top:34px"><a class="btn" href="./">← На главную</a></p>
 </main>
 <script src="fx.js"></script>
 </body>

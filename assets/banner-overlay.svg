@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="Оверлей в игре">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f1620"/><stop offset="1" stop-color="#0a0d14"/></linearGradient>
+  <radialGradient id="glow" cx="82%" cy="30%" r="55%"><stop offset="0" stop-color="#4aa3f0" stop-opacity=".30"/><stop offset="1" stop-color="#4aa3f0" stop-opacity="0"/></radialGradient>
+  <linearGradient id="bar" x1="0" x2="1"><stop offset="0" stop-color="#4aa3f0"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#4aa3f0"/></linearGradient>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+  <clipPath id="r"><rect width="1200" height="300" rx="18"/></clipPath>
+</defs>
+<style>
+  .t{font:900 64px 'Segoe UI Black','Arial Black','Helvetica Neue',sans-serif;fill:#f5f5f7;letter-spacing:-1px}
+  .s{font:600 22px 'Segoe UI','Helvetica Neue',Arial,sans-serif;fill:#ececf0}
+  .m{font:400 18px 'Segoe UI','Helvetica Neue',Arial,sans-serif;fill:#9b9ba8}
+  .tag{font:700 13px Consolas,'SFMono-Regular',Menlo,monospace;letter-spacing:3px;fill:#4aa3f0}
+  .bar{animation:bar 3.2s ease-in-out infinite;transform-origin:60px 255px}
+  @keyframes bar{0%,100%{transform:scaleX(.55);opacity:.8}50%{transform:scaleX(1);opacity:1}}
+  .tw{animation:tw 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes tw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.15)}}
+  .rise{animation:rise 0.9s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+<g clip-path="url(#r)">
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  <rect width="1200" height="300" fill="url(#glow)"/>
+  <g transform="rotate(-4 970 150)"><rect x="826" y="40" width="300" height="230" rx="16" fill="#0b0c10" fill-opacity=".85" stroke="#4aa3f0" stroke-opacity=".35"/>
+      <text x="852" y="70" style="font:800 13px Consolas,'SFMono-Regular',Menlo,monospace;letter-spacing:3px;fill:#4aa3f0">DEADLOCK PLUS · HUD</text><text x="852" y="92" style="font:600 15px 'Segoe UI','Helvetica Neue',Arial,sans-serif;fill:#cfd0d8">Души</text>
+      <rect x="852" y="101" width="250" height="10" rx="5" fill="#ffffff" fill-opacity=".08"/>
+      <rect x="852" y="101" width="210" height="10" rx="5" fill="#43d17c"><animate attributeName="width" values="0;210;210;0" keyTimes="0;.35;.85;1" dur="5s" begin="0s" repeatCount="indefinite"/></rect><text x="852" y="136" style="font:600 15px 'Segoe UI','Helvetica Neue',Arial,sans-serif;fill:#cfd0d8">Покупки</text>
+      <rect x="852" y="145" width="250" height="10" rx="5" fill="#ffffff" fill-opacity=".08"/>
+      <rect x="852" y="145" width="170" height="10" rx="5" fill="#ffd27a"><animate attributeName="width" values="0;170;170;0" keyTimes="0;.35;.85;1" dur="5s" begin="0.4s" repeatCount="indefinite"/></rect><text x="852" y="180" style="font:600 15px 'Segoe UI','Helvetica Neue',Arial,sans-serif;fill:#cfd0d8">Прокачка</text>
+      <rect x="852" y="189" width="250" height="10" rx="5" fill="#ffffff" fill-opacity=".08"/>
+      <rect x="852" y="189" width="140" height="10" rx="5" fill="#4aa3f0"><animate attributeName="width" values="0;140;140;0" keyTimes="0;.35;.85;1" dur="5s" begin="0.8s" repeatCount="indefinite"/></rect><text x="852" y="224" style="font:600 15px 'Segoe UI','Helvetica Neue',Arial,sans-serif;fill:#cfd0d8">Линия / лес</text>
+      <rect x="852" y="233" width="250" height="10" rx="5" fill="#ffffff" fill-opacity=".08"/>
+      <rect x="852" y="233" width="190" height="10" rx="5" fill="#e5484d"><animate attributeName="width" values="0;190;190;0" keyTimes="0;.35;.85;1" dur="5s" begin="1.2s" repeatCount="indefinite"/></rect></g><circle class="tw" cx="898" cy="250" r="1.1" fill="#ffffff" style="animation-delay:-1.20s"/><circle class="tw" cx="970" cy="216" r="1.9" fill="#4aa3f0" style="animation-delay:-1.68s"/><circle class="tw" cx="884" cy="105" r="1.0" fill="#4aa3f0" style="animation-delay:-2.19s"/><circle class="tw" cx="1031" cy="213" r="1.0" fill="#ffffff" style="animation-delay:-1.14s"/><circle class="tw" cx="1084" cy="171" r="1.0" fill="#4aa3f0" style="animation-delay:-1.20s"/><circle class="tw" cx="1136" cy="82" r="1.1" fill="#4aa3f0" style="animation-delay:-0.78s"/><circle class="tw" cx="1050" cy="239" r="1.0" fill="#ffffff" style="animation-delay:-0.41s"/><circle class="tw" cx="836" cy="105" r="1.5" fill="#4aa3f0" style="animation-delay:-0.42s"/><circle class="tw" cx="874" cy="69" r="2.2" fill="#4aa3f0" style="animation-delay:-1.89s"/><circle class="tw" cx="768" cy="270" r="0.9" fill="#ffffff" style="animation-delay:-1.00s"/><circle class="tw" cx="1182" cy="227" r="1.8" fill="#4aa3f0" style="animation-delay:-1.13s"/><circle class="tw" cx="812" cy="186" r="0.9" fill="#4aa3f0" style="animation-delay:-0.54s"/><circle class="tw" cx="903" cy="29" r="1.4" fill="#ffffff" style="animation-delay:-2.06s"/><circle class="tw" cx="1046" cy="150" r="1.7" fill="#4aa3f0" style="animation-delay:-1.20s"/><circle class="tw" cx="787" cy="177" r="1.4" fill="#4aa3f0" style="animation-delay:-1.93s"/><circle class="tw" cx="1147" cy="132" r="1.6" fill="#ffffff" style="animation-delay:-1.95s"/>
+  <g class="rise">
+    <text class="t" x="56" y="104">Оверлей в игре</text>
+    <text class="s" x="60" y="146">Панель поверх Deadlock — не трогает процесс игры.</text>
+    <text class="m" x="60" y="184">Что и когда покупать по статистике твоего ранга,</text><text class="m" x="60" y="212">прокачка, линия или лес и души к этой минуте.</text>
+    <rect class="bar" x="60" y="253" width="64" height="4" rx="2" fill="url(#bar)"/>
+    <text class="tag" x="144" y="260">DEADLOCK-API · ELECTRON · OVERLAY</text>
+  </g>
+</g>
+<rect x=".5" y=".5" width="1199" height="299" rx="18" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
+</svg>

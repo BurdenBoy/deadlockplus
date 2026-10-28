@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-label="Моды в один клик">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15121f"/><stop offset="1" stop-color="#0c0b13"/></linearGradient>
+  <radialGradient id="glow" cx="82%" cy="30%" r="55%"><stop offset="0" stop-color="#9d8cff" stop-opacity=".30"/><stop offset="1" stop-color="#9d8cff" stop-opacity="0"/></radialGradient>
+  <linearGradient id="bar" x1="0" x2="1"><stop offset="0" stop-color="#9d8cff"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#9d8cff"/></linearGradient>
+  <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+  <clipPath id="r"><rect width="1200" height="300" rx="18"/></clipPath>
+</defs>
+<style>
+  .t{font:900 64px 'Segoe UI Black','Arial Black','Helvetica Neue',sans-serif;fill:#f5f5f7;letter-spacing:-1px}
+  .s{font:600 22px 'Segoe UI','Helvetica Neue',Arial,sans-serif;fill:#ececf0}
+  .m{font:400 18px 'Segoe UI','Helvetica Neue',Arial,sans-serif;fill:#9b9ba8}
+  .tag{font:700 13px Consolas,'SFMono-Regular',Menlo,monospace;letter-spacing:3px;fill:#9d8cff}
+  .bar{animation:bar 3.2s ease-in-out infinite;transform-origin:60px 255px}
+  @keyframes bar{0%,100%{transform:scaleX(.55);opacity:.8}50%{transform:scaleX(1);opacity:1}}
+  .tw{animation:tw 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes tw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.15)}}
+  .rise{animation:rise 0.9s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+<g clip-path="url(#r)">
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  <rect width="1200" height="300" fill="url(#glow)"/>
+  <g transform="rotate(-8 875 150)"><g>
+          <animateTransform attributeName="transform" type="translate" values="0 0;0 -12;0 0" dur="3.4s" begin="0s" repeatCount="indefinite"/>
+          <rect x="820" y="70" width="110" height="160" rx="12" fill="#14131c" stroke="#9d8cff" stroke-opacity=".6"/>
+          <rect x="828" y="78" width="94" height="72" rx="8" fill="#9d8cff" fill-opacity=".28"/>
+          <rect x="830" y="162" width="80" height="8" rx="4" fill="#ffffff" fill-opacity=".55"/>
+          <rect x="830" y="178" width="56" height="7" rx="3.5" fill="#ffffff" fill-opacity=".25"/>
+          <rect x="830" y="200" width="40" height="18" rx="9" fill="#9d8cff" fill-opacity=".85"/></g></g><g transform="rotate(3 985 134)"><g>
+          <animateTransform attributeName="transform" type="translate" values="0 0;0 -12;0 0" dur="3.4s" begin="0.6s" repeatCount="indefinite"/>
+          <rect x="930" y="54" width="110" height="160" rx="12" fill="#14131c" stroke="#ff5a5f" stroke-opacity=".6"/>
+          <rect x="938" y="62" width="94" height="72" rx="8" fill="#ff5a5f" fill-opacity=".28"/>
+          <rect x="940" y="146" width="80" height="8" rx="4" fill="#ffffff" fill-opacity=".55"/>
+          <rect x="940" y="162" width="56" height="7" rx="3.5" fill="#ffffff" fill-opacity=".25"/>
+          <rect x="940" y="184" width="40" height="18" rx="9" fill="#ff5a5f" fill-opacity=".85"/></g></g><g transform="rotate(10 1095 154)"><g>
+          <animateTransform attributeName="transform" type="translate" values="0 0;0 -12;0 0" dur="3.4s" begin="1.2s" repeatCount="indefinite"/>
+          <rect x="1040" y="74" width="110" height="160" rx="12" fill="#14131c" stroke="#43d17c" stroke-opacity=".6"/>
+          <rect x="1048" y="82" width="94" height="72" rx="8" fill="#43d17c" fill-opacity=".28"/>
+          <rect x="1050" y="166" width="80" height="8" rx="4" fill="#ffffff" fill-opacity=".55"/>
+          <rect x="1050" y="182" width="56" height="7" rx="3.5" fill="#ffffff" fill-opacity=".25"/>
+          <rect x="1050" y="204" width="40" height="18" rx="9" fill="#43d17c" fill-opacity=".85"/></g></g><circle class="tw" cx="1105" cy="232" r="1.5" fill="#ffffff" style="animation-delay:-0.77s"/><circle class="tw" cx="978" cy="53" r="2.0" fill="#9d8cff" style="animation-delay:-0.92s"/><circle class="tw" cx="1120" cy="90" r="1.3" fill="#9d8cff" style="animation-delay:-0.66s"/><circle class="tw" cx="920" cy="68" r="0.8" fill="#ffffff" style="animation-delay:-1.88s"/><circle class="tw" cx="852" cy="84" r="1.2" fill="#9d8cff" style="animation-delay:-1.25s"/><circle class="tw" cx="921" cy="186" r="1.7" fill="#9d8cff" style="animation-delay:-0.94s"/><circle class="tw" cx="1157" cy="242" r="0.9" fill="#ffffff" style="animation-delay:-2.15s"/><circle class="tw" cx="1146" cy="224" r="1.0" fill="#9d8cff" style="animation-delay:-2.16s"/><circle class="tw" cx="1018" cy="24" r="0.8" fill="#9d8cff" style="animation-delay:-2.47s"/><circle class="tw" cx="1028" cy="85" r="0.9" fill="#ffffff" style="animation-delay:-0.37s"/><circle class="tw" cx="830" cy="222" r="1.3" fill="#9d8cff" style="animation-delay:-0.40s"/><circle class="tw" cx="1145" cy="226" r="1.0" fill="#9d8cff" style="animation-delay:-2.32s"/><circle class="tw" cx="1006" cy="223" r="1.7" fill="#ffffff" style="animation-delay:-2.32s"/><circle class="tw" cx="1090" cy="238" r="1.1" fill="#9d8cff" style="animation-delay:-1.80s"/><circle class="tw" cx="969" cy="213" r="1.4" fill="#9d8cff" style="animation-delay:-2.29s"/><circle class="tw" cx="981" cy="89" r="1.1" fill="#ffffff" style="animation-delay:-0.36s"/><circle class="tw" cx="952" cy="35" r="1.5" fill="#9d8cff" style="animation-delay:-0.38s"/><circle class="tw" cx="951" cy="150" r="1.6" fill="#9d8cff" style="animation-delay:-2.24s"/>
+  <g class="rise">
+    <text class="t" x="56" y="104">Моды в один клик</text>
+    <text class="s" x="60" y="146">Каталог GameBanana прямо в лаунчере.</text>
+    <text class="m" x="60" y="184">Скины, HUD и звуки: включай, меняй порядок,</text><text class="m" x="60" y="212">играй с модами или без — одной кнопкой.</text>
+    <rect class="bar" x="60" y="253" width="64" height="4" rx="2" fill="url(#bar)"/>
+    <text class="tag" x="144" y="260">GAMEBANANA · VPK · LAUNCHER</text>
+  </g>
+</g>
+<rect x=".5" y=".5" width="1199" height="299" rx="18" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
+</svg>
