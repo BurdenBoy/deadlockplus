@@ -2,6 +2,22 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.6.1",
+    date: "2026-10-29",
+    groups: [
+      {
+        kind: "new",
+        app: "overlay",
+        title: ["Таймеры объектов", "Objective timers"],
+        items: [
+          ["Блок «Объекты» в боковой панели и в меню: урна душ (и на какой линии), усиления на мостах, первые средние и большие лагеря, Нестабильный разлом", "An «Objectives» block in the side panel and the menu: the Soul Urn (and its lane), bridge power-ups, the first medium and large camps, the Unstable Rift"],
+          ["Мид-босс: нажми Ctrl+Shift+B, когда его убили, — пойдёт отсчёт до возрождения (7, 6, затем 5 минут). Повторное нажатие в течение 15 секунд снимает отметку", "Mid Boss: press Ctrl+Shift+B when it dies and a respawn countdown starts (7, 6, then 5 minutes). Pressing again within 15 seconds takes the mark back"],
+          ["Таймеры идут от часов матча: live-матча или таймера, запущенного в начале игры", "Timers run from the match clock: the live match, or the timer started at the beginning of the game"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.6.0",
     date: "2026-10-29",
     groups: [
