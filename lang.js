@@ -26,6 +26,8 @@
     "Окно поверх игры в режиме «Без рамки». Открывается клавишей Insert или кликом по значку в углу экрана.": "A window over the game in borderless mode. Open it with Insert or by clicking the icon in the corner of the screen.",
     "Выбери функцию": "Pick a feature",
     "Нажимай на пункты меню на скриншоте или на вкладки.": "Click the menu on the screenshot or the tabs.",
+    "Темы": "Themes", "Стиль и цвет меняются в настройках лаунчера. Посмотри, как это выглядит.": "Style and colour are set in the launcher's settings. See how each one looks.",
+    "Стекло": "Glass", "Карбон": "Carbon", "Песок": "Sand", "Неон": "Neon", "Синий": "Blue", "Мята": "Mint",
     "Главная: мод недели и популярное с GameBanana": "Home: mod of the week and what's popular on GameBanana", "Главная": "Home",
     "Магазин модов: каталог GameBanana с поиском и категориями": "Mods store: the GameBanana catalogue with search and categories", "Магазин": "Store",
     "Библиотека: порядок, варианты и обновления модов": "Library: order, variants and updates of your mods", "Библиотека": "Library",

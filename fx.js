@@ -139,6 +139,29 @@
     if (scr && !reduce) new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { io.disconnect(); setTimeout(() => scr.classList.add("hint"), 600); } }, { threshold: 0.5 }).observe(scr);
   }
 
+  // ---------- theme picker ----------
+  const thScreen = $("#th-screen");
+  if (thScreen) {
+    const T = window.T || ((ru) => ru);
+    const NOTE = {
+      glass: T("Стекло — полупрозрачный тёмный фон и красный акцент. Стоит по умолчанию.", "Glass — see-through dark with a red accent. The default."),
+      carbon: T("Карбон — плотный тёмный фон без прозрачности.", "Carbon — solid dark, no see-through."),
+      sand: T("Песок — тёплый тёмный с кремовым акцентом.", "Sand — warm dark with a cream accent."),
+      neon: T("Неон — фиолетовая ночь со свечением.", "Neon — violet night with glow."),
+      blue: T("Синий — стекло с синим акцентом.", "Blue — glass with a blue accent."),
+      mint: T("Мята — карбон с зелёным акцентом.", "Mint — carbon with a green accent."),
+    };
+    const pick = (b) => {
+      const k = b.dataset.th;
+      $$("[data-th]").forEach((x) => x.classList.toggle("on", x === b));
+      $$("[data-thi]").forEach((im) => { im.loading = "eager"; im.classList.toggle("on", im.dataset.thi === k); });
+      thScreen.style.setProperty("--th", b.style.getPropertyValue("--c"));
+      $("#th-note").textContent = NOTE[k];
+    };
+    $$("[data-th]").forEach((b) => (b.onclick = () => pick(b)));
+    pick($("[data-th].on"));
+  }
+
   // ---------- floating cards lean away from the cursor ----------
   const fl = $$(".fl");
   if (fl.length && !reduce) {
