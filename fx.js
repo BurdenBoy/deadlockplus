@@ -6,6 +6,11 @@
   const D = window.DLP || { features: [], icons: {} };
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  // phones and weak PCs get the page without the moving grain, drifting blurred cards and spinning rings
+  const lite = matchMedia("(pointer:coarse)").matches || (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+  if (lite) document.documentElement.classList.add("lite");
+  // load pictures of a section only when it gets close to the screen
+  const near = (el, fn) => { if (!el) return; new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { io.disconnect(); fn(); } }, { rootMargin: "700px 0px" }).observe(el); };
   // feature text in the page's language (features.js carries both)
   const tx = (f, k) => (window.LANG === "en" && f[k + "_en"]) || f[k];
   const svgIcon = (name) => `<svg viewBox="0 0 24 24" aria-hidden="true">${D.icons[name] || ""}</svg>`;
@@ -113,8 +118,8 @@
   const shot = $("#shot");
   if (shot) {
     const cap = $("#shot-cap");
+    near(shot, () => $$("[data-shot]").forEach((b) => { new Image().src = `assets/shot-${b.dataset.shot}.webp`; }));
     $$("[data-shot]").forEach((b) => {
-      new Image().src = `assets/shot-${b.dataset.shot}.webp`;
       b.addEventListener("click", () => {
         $$("[data-shot]").forEach((x) => x.classList.toggle("on", x === b));
         // the close buttons of a window on the screenshot only exist on that screenshot
@@ -154,11 +159,12 @@
     const pick = (b) => {
       const k = b.dataset.th;
       $$("[data-th]").forEach((x) => x.classList.toggle("on", x === b));
-      $$("[data-thi]").forEach((im) => { im.loading = "eager"; im.classList.toggle("on", im.dataset.thi === k); });
+      $$("[data-thi]").forEach((im) => im.classList.toggle("on", im.dataset.thi === k));
       thScreen.style.setProperty("--th", b.style.getPropertyValue("--c"));
       $("#th-note").textContent = NOTE[k];
     };
     $$("[data-th]").forEach((b) => (b.onclick = () => pick(b)));
+    near(thScreen, () => $$("[data-thi]").forEach((im) => (im.loading = "eager")));
     pick($("[data-th].on"));
   }
 
