@@ -69,12 +69,12 @@ a{color:inherit}
 .hero{position:relative;min-height:100vh;padding:110px 0 70px;overflow:hidden;isolation:isolate;display:flex;align-items:center}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:30px;align-items:center}
 .kicker{font:800 13px/1 "Exo 2",sans-serif;letter-spacing:.42em;text-transform:uppercase;color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.3)}
-.title{margin:18px 0 26px;font-size:clamp(44px,11vw,150px)}
+.title{margin:18px 0 26px;font-size:clamp(44px,6.6vw,150px)} /* two columns: sized to the left column */
 .title .row{display:block}
 .title .row + .row{margin-top:.08em;margin-left:.5em;font-size:.72em}
 .hero .panel{max-width:520px;font-size:clamp(15.5px,1.25vw,17.5px)}
 .menu{margin-top:34px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-.menu a{position:relative;text-decoration:none;font-size:clamp(26px,7.4vw,56px);display:inline-flex;align-items:center;gap:14px;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.menu a{position:relative;text-decoration:none;font-size:clamp(26px,3.5vw,56px);display:inline-flex;align-items:center;gap:14px;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
 .menu a:nth-child(2){margin-left:.3em}.menu a:nth-child(3){margin-left:.1em}.menu a:nth-child(4){margin-left:.45em}
 .menu a::after{content:"";width:0;height:0;border:14px solid transparent;border-left:22px solid #fff;opacity:0;transform:translateX(-10px) rotate(-8deg);transition:.25s;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.35))}
 .menu a:hover,.menu a:focus-visible{transform:translateX(10px) rotate(-2deg)}
@@ -172,6 +172,8 @@ footer .sp{flex:1}
 
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr}
+  .title{font-size:clamp(44px,12vw,120px)}
+  .menu a{font-size:clamp(26px,7.4vw,48px)}
   .mascot{width:min(440px,90%);justify-self:center;order:-1;margin-top:-10px}
   .shots{grid-template-columns:1fr}.shot:first-child{grid-row:auto}
   .top .hide-s{display:none}
