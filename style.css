@@ -320,7 +320,7 @@ footer .sp{flex:1}
 
 /* ---------- tools ---------- */
 .tools{margin-top:40px;border-radius:22px;border:1px solid var(--line-2);background:var(--char-2);overflow:hidden;box-shadow:0 40px 110px rgba(0,0,0,.45)}
-.tool-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--line)}
+.tool-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--line)}
 .tool-tabs button{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:14px;align-items:center;text-align:left;padding:18px 22px;border:0;background:none;cursor:pointer;
   color:var(--muted);border-bottom:3px solid transparent;transition:background .2s,border-color .2s}
 .tool-tabs button .ab{--s:44px;grid-row:span 2}
@@ -330,6 +330,33 @@ footer .sp{flex:1}
 .tool-tabs button.on{border-bottom-color:var(--red);background:rgba(208,52,47,.07)}
 .tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;padding:28px}
 .tool[hidden]{display:none}
+/* counter picks: hero picker on top, then who beats the hero and who it beats */
+.tool[data-pane=ct]{grid-template-columns:1fr;gap:22px}
+.ct-heroes{display:flex;flex-wrap:wrap;gap:6px}
+.ct-heroes button{width:46px;height:46px;padding:0;border-radius:10px;border:2px solid transparent;background:#16171c;overflow:hidden;cursor:pointer;opacity:.6;transition:opacity .15s,border-color .15s,transform .15s}
+.ct-heroes button img{width:100%;height:100%;object-fit:cover;display:block}
+.ct-heroes button:hover{opacity:1;transform:translateY(-2px)}
+.ct-heroes button.on{opacity:1;border-color:var(--red);box-shadow:0 0 0 3px rgba(208,52,47,.25)}
+.ct-head{display:flex;align-items:center;gap:16px}
+.ct-head img{width:64px;height:64px;border-radius:14px;object-fit:cover;background:#16171c}
+.ct-head small{display:block;color:var(--muted);font-size:13px}
+.ct-head b{display:block;font:900 30px/1.1 var(--serif);color:var(--cream)}
+.ct-head span{color:var(--muted);font-size:14px}
+.ct-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.ct-cols h4{margin:0 0 10px;font:700 15px var(--cond);letter-spacing:.06em;text-transform:uppercase}
+.ct-cols .bad h4{color:#ff8a80}
+.ct-cols .good h4{color:#6fe3a0}
+.ct-row{display:grid;grid-template-columns:38px minmax(0,1fr) 90px 62px;align-items:center;gap:12px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.025);margin-bottom:6px}
+.ct-row img{width:38px;height:38px;border-radius:9px;object-fit:cover;background:#16171c}
+.ct-row b{font-weight:600;color:var(--cream);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ct-bar{height:6px;border-radius:9px;background:rgba(255,255,255,.07);overflow:hidden}
+.ct-bar i{display:block;height:100%;border-radius:9px}
+.bad .ct-bar i{background:#e5484d}
+.good .ct-bar i{background:#43d17c}
+.ct-row em{font-style:normal;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.bad .ct-row em{color:#ff8a80}
+.good .ct-row em{color:#6fe3a0}
+@media (max-width:760px){.ct-heroes{gap:4px}.ct-heroes button{width:38px;height:38px;border-radius:8px}.ct-cols{grid-template-columns:1fr}.ct-row{grid-template-columns:38px minmax(0,1fr) 60px 56px}}
 .tool[data-pane=roll]{grid-template-columns:1fr}
 .roll-stage{position:relative;height:200px;overflow:hidden;border-radius:14px;background:#0f1013;border:1px solid var(--line);
   -webkit-mask:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);mask:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent)}
@@ -401,7 +428,7 @@ label.chk input{width:18px;height:18px;accent-color:var(--red)}
 @media (max-width:1000px){
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tool,.faq-wrap{grid-template-columns:1fr}
-  .tool-tabs{grid-template-columns:1fr}
+  .tool-tabs{grid-template-columns:1fr 1fr}
 }
 @media (max-width:760px){
   .tool{padding:18px}

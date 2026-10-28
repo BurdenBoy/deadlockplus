@@ -130,6 +130,51 @@
     setTimeout(() => { $("#roll-name").textContent = pick.name; spinning = false; go.disabled = false; go.textContent = T("Ещё раз", "Again"); }, reduce ? 0 : 3700);
   };
 
+  // ---------- counter picks: the hero's win rate against each enemy, last 2 weeks ----------
+  // Compared with the hero's own win rate, so a strong hero doesn't look like it beats everyone.
+  const ctBox = $("#ct-heroes");
+  let CT = null, ctHero = null;
+  async function ctLoad() {
+    if (CT || !ctBox) return;
+    CT = {};
+    try {
+      const since = Math.floor(Date.now() / 1000) - 14 * 86400;
+      const [h, rows] = await Promise.all([
+        fetch(API + "/v1/assets/heroes?only_active=true").then((r) => r.json()),
+        fetch(`${API}/v1/analytics/hero-counter-stats?min_unix_timestamp=${since}`).then((r) => r.json()),
+      ]);
+      CT.heroes = h.filter((x) => x.player_selectable && !x.disabled)
+        .map((x) => ({ id: x.id, name: x.name, img: (x.images || {}).icon_image_small || (x.images || {}).icon_hero_card || "" }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+      CT.by = {};
+      for (const r of rows) (CT.by[r.hero_id] ||= []).push(r);
+      CT.heroes = CT.heroes.filter((x) => CT.by[x.id]);
+      ctBox.innerHTML = CT.heroes.map((x) => `<button data-ct="${x.id}" title="${esc(x.name)}" aria-label="${esc(x.name)}"><img src="${esc(x.img)}" alt=""></button>`).join("");
+      $$("[data-ct]").forEach((b) => (b.onclick = () => ctShow(+b.dataset.ct)));
+      ctShow(CT.heroes[Math.floor(Math.random() * CT.heroes.length)].id);
+    } catch (e) {
+      CT = null;
+      ctBox.innerHTML = `<span class="note-s">${T("Нет связи — попробуй позже.", "Offline — try again later.")}</span>`;
+    }
+  }
+  function ctShow(id) {
+    ctHero = id;
+    $$("[data-ct]").forEach((b) => b.classList.toggle("on", +b.dataset.ct === id));
+    const hero = CT.heroes.find((x) => x.id === id), name = (hid) => (CT.heroes.find((x) => x.id === hid) || {}).name;
+    const rows = CT.by[id].filter((r) => r.matches_played >= 400 && name(r.enemy_hero_id));
+    const base = rows.reduce((a, r) => a + r.wins, 0) / Math.max(1, rows.reduce((a, r) => a + r.matches_played, 0));
+    const vs = rows.map((r) => ({ id: r.enemy_hero_id, wr: r.wins / r.matches_played, d: r.wins / r.matches_played - base })).sort((a, b) => a.d - b.d);
+    const max = Math.max(0.01, ...vs.map((v) => Math.abs(v.d)));
+    const img = (hid) => (CT.heroes.find((x) => x.id === hid) || {}).img;
+    const sign = (d) => (d > 0 ? "+" : "−") + pct1(Math.abs(d));
+    const list = (arr) => arr.map((v) => `<div class="ct-row"><img src="${esc(img(v.id))}" alt=""><b>${esc(name(v.id))}</b><span class="ct-bar"><i style="width:${(Math.abs(v.d) / max * 100).toFixed(0)}%"></i></span><em title="${T("побед против него", "win rate against")}: ${pct1(v.wr)}%">${sign(v.d)}%</em></div>`).join("");
+    $("#ct-out").innerHTML = `<div class="ct-head"><img src="${esc(hero.img)}" alt=""><div><small>${T("Контрпики для", "Counters for")}</small><b>${esc(hero.name)}</b><span>${T("побед в среднем", "average win rate")} ${pct1(base)}%</span></div></div>
+      <div class="ct-cols"><div class="bad"><h4>${T("Тяжело против", "Struggles against")}</h4>${list(vs.slice(0, 6))}</div>
+      <div class="good"><h4>${T("Легко против", "Does well against")}</h4>${list(vs.slice(-6).reverse())}</div></div>`;
+  }
+  const ctTab = $('[data-tool="ct"]');
+  if (ctTab) ctTab.addEventListener("click", ctLoad);
+
   // ---------- crosshair generator ----------
   const X = { gap: 0, height: 16, width: 4, pip: 100, dot: 100, border: false, color: "#ffffff" };
   const SW = ["#ffffff", "#46ff78", "#00e6ff", "#ffe14d", "#ff69b4", "#ff4d4d", "#a77bff"];

@@ -138,6 +138,7 @@
       <button class="on" data-tool="roll"><span class="ab" data-ic="dice"></span><b>Случайный герой</b><small>кто сегодня на линии</small></button>
       <button data-tool="xh"><span class="ab" data-ic="target"></span><b>Генератор прицела</b><small>собери и скопируй команды</small></button>
       <button data-tool="cfg"><span class="ab" data-ic="code"></span><b>Конструктор autoexec</b><small>готовый файл за минуту</small></button>
+      <button data-tool="ct"><span class="ab" data-ic="shield"></span><b>Контрпики</b><small>кто сильнее твоего героя</small></button>
     </div>
     <div class="tool" data-pane="roll">
       <div class="roll-stage"><div class="roll-track" id="roll-track"></div><div class="roll-pick"></div></div>
@@ -156,6 +157,10 @@
         <button class="btn acc" id="xh-copy">Скопировать команды</button>
         <p class="note-s">Вставь в консоль игры (~). В Deadlock Plus прицел меняется кнопкой и сохраняется в настройках игры.</p>
       </div>
+    </div>
+    <div class="tool" data-pane="ct" hidden>
+      <div class="ct-heroes" id="ct-heroes"><span class="note-s">Загружаю героев…</span></div>
+      <div class="ct-out" id="ct-out"></div>
     </div>
     <div class="tool" data-pane="cfg" hidden>
       <div class="cfg-l">
