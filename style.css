@@ -407,3 +407,27 @@ label.chk input{width:18px;height:18px;accent-color:var(--red)}
   .cl-bar .seg2{width:100%}
   .cl-bar .seg2 button{flex:1 1 auto}
 }
+
+/* plainer, smaller section headings */
+.h2{font-size:clamp(30px,3.2vw,46px);text-shadow:3px 4px 0 rgba(0,0,0,.45)}
+.center p.sub{font-size:16px;margin-top:10px}
+
+/* clickable launcher menu on the screenshot */
+.hots{position:absolute;inset:0;pointer-events:none}
+.hot{position:absolute;pointer-events:auto;border:0;padding:0;background:transparent;border-radius:9px;cursor:pointer;transition:background .15s,box-shadow .15s}
+.hot:hover{background:rgba(255,255,255,.08);box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.hot:focus-visible{outline:2px solid var(--red);outline-offset:1px}
+.screen.hint .hot[data-hot]{animation:hotHint 1.6s ease-in-out 2}
+@keyframes hotHint{50%{background:rgba(208,52,47,.18)}}
+.tabs{gap:6px}
+.tabs button{padding:7px 14px;font-size:13px}
+
+/* live numbers */
+.live-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;color:var(--muted);font-size:13px}
+.live-h b{font:700 15px var(--cond);letter-spacing:.06em;text-transform:uppercase;color:var(--cream)}
+.live-h .sp{flex:1}
+.live-dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:blink 1.6s ease-in-out infinite}
+.stat b{transition:color .4s}
+.stat b.bump{color:var(--green)}
+.dl-count{margin-top:12px;font-size:13.5px;color:var(--faint);text-align:center}
+.dl-count b,.dl-count a{color:var(--muted)}

@@ -2,6 +2,29 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.4.2",
+    date: "2026-10-28",
+    groups: [
+      {
+        kind: "new",
+        app: "launcher",
+        title: ["Мета", "Meta"],
+        items: [
+          ["Раздел «Мета»: тир-лист героев по рангу и периоду — процент побед, частота выбора, K/D/A", "A Meta page: a hero tier list by rank and period — win rate, pick rate, K/D/A"],
+          ["Нажми на героя — лучшие предметы по каждому уровню с процентом побед и временем покупки", "Click a hero for the best items per tier with win rate and buy time"],
+        ],
+      },
+      {
+        kind: "fix",
+        app: "launcher",
+        title: ["Исправлено", "Fixed"],
+        items: [
+          ["Прицел: в широком окне предпросмотр больше не растягивается на всю страницу, герой на фоне чёткий", "Crosshair: in a wide window the preview no longer stretches across the page, and the hero behind it is sharp"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.4.1",
     date: "2026-10-28",
     groups: [

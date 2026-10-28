@@ -123,6 +123,16 @@
         }, 260);
       });
     });
+    // the launcher's own menu on the screenshot works like the tabs
+    $$("[data-hot]").forEach((h) => (h.onclick = () => {
+      const k = h.dataset.hot;
+      if (k.startsWith("#")) { const t = $(k); if (t) t.scrollIntoView({ behavior: reduce ? "auto" : "smooth" }); return; }
+      const tab = $(`[data-shot="${k}"]`);
+      if (tab) { tab.click(); tab.scrollIntoView({ block: "nearest", inline: "center", behavior: reduce ? "auto" : "smooth" }); }
+    }));
+    // once in view, the clickable spots pulse briefly so people notice them
+    const scr = shot.closest(".screen");
+    if (scr && !reduce) new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { io.disconnect(); setTimeout(() => scr.classList.add("hint"), 600); } }, { threshold: 0.5 }).observe(scr);
   }
 
   // ---------- floating cards lean away from the cursor ----------

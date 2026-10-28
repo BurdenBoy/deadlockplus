@@ -1,5 +1,5 @@
-// Home page extras: the download counter from GitHub releases, the "installing a mod" toast on the
-// launcher screenshot, and the free tools (random hero, crosshair generator, autoexec builder).
+// Home page extras: live Deadlock numbers from deadlock-api, the download counter from GitHub
+// releases, the "installing a mod" toast on the launcher screenshot, and the free tools (random hero, crosshair generator, autoexec builder).
 (function () {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -15,16 +15,69 @@
     .then((rels) => {
       const n = rels.reduce((a, r) => a + (r.assets || []).reduce((b, x) => b + (x.download_count || 0), 0), 0);
       const el = $("#st-dl");
-      if (el) countUp(el, n);
+      if (el) el.textContent = n.toLocaleString("ru-RU");
       const latest = rels.find((r) => !r.draft && !r.prerelease);
       if (latest && $("#st-ver")) $("#st-ver").textContent = latest.tag_name;
     })
-    .catch(() => { const el = $("#st-dl"); if (el) el.textContent = "—"; });
+    .catch(() => {});
   function countUp(el, n) {
-    if (reduce) { el.textContent = n.toLocaleString("ru-RU"); return; }
-    const t0 = performance.now(), D = 1400;
-    const step = (t) => { const k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(n * e).toLocaleString("ru-RU"); if (k < 1) requestAnimationFrame(step); };
+    const from = +String(el.dataset.n || 0);
+    el.dataset.n = n;
+    if (reduce || !from) { el.textContent = n.toLocaleString("ru-RU"); if (from && from !== n) bump(el); if (!from && !reduce) roll(el, 0, n); return; }
+    if (from !== n) { roll(el, from, n); bump(el); }
+  }
+  function roll(el, a, b) {
+    const t0 = performance.now(), D = 1200;
+    const step = (t) => { const k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(a + (b - a) * e).toLocaleString("ru-RU"); if (k < 1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
+  }
+  const bump = (el) => { el.classList.add("bump"); setTimeout(() => el.classList.remove("bump"), 900); };
+
+  // ---------- Deadlock right now: last 24 hours from deadlock-api, refreshed every minute ----------
+  const API = "https://api.deadlock-api.com";
+  let HERO_NAMES = null, liveAt = 0;
+  async function live() {
+    if (!$("#lv-matches")) return;
+    const since = Math.floor(Date.now() / 1000) - 86400;
+    try {
+      if (!HERO_NAMES) {
+        const h = await (await fetch(API + "/v1/assets/heroes?only_active=true")).json();
+        HERO_NAMES = Object.fromEntries(h.map((x) => [x.id, x.name]));
+      }
+      const [g, hs] = await Promise.all([
+        fetch(`${API}/v1/analytics/game-stats?min_unix_timestamp=${since}`).then((r) => r.json()),
+        fetch(`${API}/v1/analytics/hero-stats?min_unix_timestamp=${since}`).then((r) => r.json()),
+      ]);
+      const s = (Array.isArray(g) ? g[0] : g) || {};
+      countUp($("#lv-matches"), s.total_matches || 0);
+      $("#lv-matches-s").textContent = `≈ ${Math.round((s.total_matches || 0) / 24).toLocaleString("ru-RU")} в час`;
+      countUp($("#lv-players"), s.total_players || 0);
+      const d = s.avg_duration_s || 0;
+      $("#lv-dur").textContent = `${Math.floor(d / 60)}:${String(Math.round(d % 60)).padStart(2, "0")}`;
+      $("#lv-kda").textContent = `в среднем ${(s.avg_kills || 0).toFixed(1)} / ${(s.avg_deaths || 0).toFixed(1)} / ${(s.avg_assists || 0).toFixed(1)}`;
+      // best win rate among heroes with enough games, pulled toward 50% for small samples
+      const best = hs.filter((r) => HERO_NAMES[r.hero_id] && r.matches >= 300)
+        .map((r) => ({ ...r, s: (r.wins + 250) / (r.matches + 500) }))
+        .sort((a, b) => b.s - a.s)[0];
+      if (best) {
+        $("#lv-hero").textContent = HERO_NAMES[best.hero_id];
+        $("#lv-hero-s").textContent = `${((best.wins / best.matches) * 100).toFixed(1).replace(".", ",")}% побед · ${best.matches.toLocaleString("ru-RU")} матчей`;
+      }
+      liveAt = Date.now();
+      ago();
+    } catch (e) {
+      $("#lv-at").textContent = "нет связи с deadlock-api";
+    }
+  }
+  function ago() {
+    if (!liveAt) return;
+    const s = Math.round((Date.now() - liveAt) / 1000);
+    $("#lv-at").textContent = s < 10 ? "обновлено только что" : `обновлено ${s} с назад`;
+  }
+  if ($("#lv-matches")) {
+    live();
+    setInterval(live, 60000);
+    setInterval(ago, 5000);
   }
 
   // ---------- "installing a mod" toast on the screenshot ----------
