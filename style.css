@@ -416,6 +416,7 @@ label.chk input{width:18px;height:18px;accent-color:var(--red)}
 .hots{position:absolute;inset:0;pointer-events:none}
 .hot{position:absolute;pointer-events:auto;border:0;padding:0;background:transparent;border-radius:9px;cursor:pointer;transition:background .15s,box-shadow .15s}
 .hot:hover{background:rgba(255,255,255,.08);box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+.hot.round{border-radius:50%}
 .hot:focus-visible{outline:2px solid var(--red);outline-offset:1px}
 .screen.hint .hot[data-hot]{animation:hotHint 1.6s ease-in-out 2}
 @keyframes hotHint{50%{background:rgba(208,52,47,.18)}}

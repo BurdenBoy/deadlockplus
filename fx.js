@@ -117,6 +117,8 @@
       new Image().src = `assets/shot-${b.dataset.shot}.webp`;
       b.addEventListener("click", () => {
         $$("[data-shot]").forEach((x) => x.classList.toggle("on", x === b));
+        // the close buttons of a window on the screenshot only exist on that screenshot
+        $$("[data-on]").forEach((h) => (h.hidden = h.dataset.on !== b.dataset.shot));
         shot.classList.add("out");
         setTimeout(() => {
           shot.src = `assets/shot-${b.dataset.shot}.webp`;

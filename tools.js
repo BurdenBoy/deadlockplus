@@ -37,7 +37,7 @@
 
   // ---------- Deadlock right now: last 24 hours from deadlock-api, refreshed every minute ----------
   const API = "https://api.deadlock-api.com";
-  let HERO_NAMES = null, liveAt = 0;
+  let HERO_NAMES = null;
   async function live() {
     if (!$("#lv-matches")) return;
     const since = Math.floor(Date.now() / 1000) - 86400;
@@ -52,34 +52,25 @@
       ]);
       const s = (Array.isArray(g) ? g[0] : g) || {};
       countUp($("#lv-matches"), s.total_matches || 0);
-      $("#lv-matches-s").textContent = T(`≈ ${Math.round((s.total_matches || 0) / 24).toLocaleString(LOC)} в час`, `≈ ${Math.round((s.total_matches || 0) / 24).toLocaleString(LOC)} an hour`);
       countUp($("#lv-players"), s.total_players || 0);
       const d = s.avg_duration_s || 0;
       $("#lv-dur").textContent = `${Math.floor(d / 60)}:${String(Math.round(d % 60)).padStart(2, "0")}`;
-      $("#lv-kda").textContent = `${T("в среднем", "on average")} ${(s.avg_kills || 0).toFixed(1)} / ${(s.avg_deaths || 0).toFixed(1)} / ${(s.avg_assists || 0).toFixed(1)}`;
       // best win rate among heroes with enough games, pulled toward 50% for small samples
       const best = hs.filter((r) => HERO_NAMES[r.hero_id] && r.matches >= 300)
         .map((r) => ({ ...r, s: (r.wins + 250) / (r.matches + 500) }))
         .sort((a, b) => b.s - a.s)[0];
       if (best) {
         $("#lv-hero").textContent = HERO_NAMES[best.hero_id];
-        $("#lv-hero-s").textContent = `${pct1(best.wins / best.matches)}% ${T("побед", "win rate")} · ${best.matches.toLocaleString(LOC)} ${T("матчей", "matches")}`;
+        $("#lv-hero-s").textContent = `${pct1(best.wins / best.matches)}% ${T("побед", "win rate")}`;
       }
-      liveAt = Date.now();
-      ago();
+      $("#lv-at").textContent = "";
     } catch (e) {
-      $("#lv-at").textContent = T("нет связи с deadlock-api", "can't reach deadlock-api");
+      $("#lv-at").textContent = T("нет связи", "offline");
     }
-  }
-  function ago() {
-    if (!liveAt) return;
-    const s = Math.round((Date.now() - liveAt) / 1000);
-    $("#lv-at").textContent = s < 10 ? T("обновлено только что", "updated just now") : T(`обновлено ${s} с назад`, `updated ${s}s ago`);
   }
   if ($("#lv-matches")) {
     live();
     setInterval(live, 60000);
-    setInterval(ago, 5000);
   }
 
   // ---------- "installing a mod" toast on the screenshot ----------
