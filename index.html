@@ -35,7 +35,7 @@
     Deadlock <span>Plus</span>
   </a>
   <span class="ver">v1.4 · Windows</span>
-  <div class="links"><a href="#features">Функции</a><a href="#shots">Лаунчер</a><a href="#safe">Безопасность</a></div>
+  <div class="links"><a href="#features">Функции</a><a href="#shots">Лаунчер</a><a href="#tools">Инструменты</a><a href="changelog.html">Изменения</a><a href="#faq">Вопросы</a></div>
   <a class="btn acc small" href="#download">Скачать</a>
 </div></nav>
 
@@ -45,9 +45,9 @@
   <div class="floaters" aria-hidden="true">
     <img class="fl" src="assets/cards/coach.svg" alt="" style="--r:-11deg;--d:8s;left:47%;top:13%">
     <img class="fl dim" src="assets/cards/mods.svg" alt="" style="--r:9deg;--d:10s;right:3%;top:12%">
-    <img class="fl" src="assets/cards/themes.svg" alt="" style="--r:7deg;--d:9s;right:6%;bottom:9%">
-    <img class="fl dim" src="assets/cards/game.svg" alt="" style="--r:-8deg;--d:11s;left:44%;bottom:7%">
-    <img class="fl dim" src="assets/cards/region.svg" alt="" style="--r:12deg;--d:12s;left:2%;bottom:5%">
+    <img class="fl" src="assets/cards/xhair.svg" alt="" style="--r:7deg;--d:9s;right:6%;bottom:9%">
+    <img class="fl dim" src="assets/cards/matches.svg" alt="" style="--r:-8deg;--d:11s;left:44%;bottom:7%">
+    <img class="fl dim" src="assets/cards/skins.svg" alt="" style="--r:12deg;--d:12s;left:2%;bottom:5%">
   </div>
   <div class="wrap hero-grid">
     <div>
@@ -95,11 +95,24 @@
   <div class="center rv"><div class="kick">Лаунчер</div><h2 class="h2">Лаунчер, который <em>хочется открыть</em></h2></div>
   <div class="tabs rv" role="tablist">
     <button class="on" data-shot="home" data-cap="Главная — мод недели и популярное с GameBanana">Главная</button>
-    <button data-shot="store" data-cap="Магазин модов — поиск, лайки и установка в один клик">Моды</button>
+    <button data-shot="matches" data-cap="Матчи — история с оценками, местом в матче и графиком побед">Матчи</button>
+    <button data-shot="review" data-cap="Разбор матча — что получилось, что исправить и отзыв AI-тренера">Разбор матча</button>
+    <button data-shot="skins" data-cap="Скины героев — свой вид для каждого героя">Скины</button>
+    <button data-shot="xhair" data-cap="Прицел — редактор с предпросмотром и пресетами">Прицел</button>
+    <button data-shot="library" data-cap="Библиотека — порядок, варианты и обновления модов">Библиотека</button>
+    <button data-shot="conflicts" data-cap="Конфликты — какие моды меняют одни и те же файлы">Конфликты</button>
+    <button data-shot="profiles" data-cap="Профили — наборы модов и код для друга">Профили</button>
     <button data-shot="game" data-cap="Настройки игры — команды без ручной правки конфигов">Настройки игры</button>
-    <button data-shot="settings" data-cap="Оформление — темы, анимации и эффекты фона">Оформление</button>
   </div>
-  <div class="screen rv"><div class="inner"><img src="assets/shot-home.webp" alt="Лаунчер Deadlock Plus" id="shot"></div><div class="cap" id="shot-cap">Главная — мод недели и популярное с GameBanana</div></div>
+  <div class="screen rv"><div class="inner"><img src="assets/shot-home.webp" alt="Лаунчер Deadlock Plus" id="shot">
+      <div class="demo-toast" aria-hidden="true"><span class="dt-ic"></span><div><b class="dt-t">Устанавливаю мод</b><small class="dt-s">Yamato remodel</small><i class="dt-bar"><i></i></i></div></div></div><div class="cap" id="shot-cap">Главная — мод недели и популярное с GameBanana</div></div>
+</div></section>
+
+<section class="stats-sec"><div class="wrap stats rv">
+  <div class="stat"><small>Скачиваний</small><b id="st-dl">—</b><span>со всех версий</span></div>
+  <div class="stat"><small>Последняя версия</small><b id="st-ver">v1.4</b><a href="changelog.html">что нового</a></div>
+  <div class="stat"><small>Функций</small><b>10+</b><span>оверлей, моды, AI, матчи</span></div>
+  <div class="stat"><small>Цена</small><b>Бесплатно</b><span>без рекламы и подписок</span></div>
 </div></section>
 
 <section class="sec" id="safe" style="padding-top:40px"><div class="wrap">
@@ -109,6 +122,62 @@
     <div class="rv"><span class="ab" data-ic="shield"></span><h3>Не читает память игры</h3><p>Ничего не внедряет в процесс Deadlock. Данные матчей — из публичного deadlock-api.</p></div>
     <div class="rv"><span class="ab" data-ic="box"></span><h3>Моды — только внешний вид</h3><p>Скины, HUD и звуки видишь только ты. Моды, меняющие геймплей, в каталоге скрыты.</p></div>
     <div class="rv"><span class="ab" data-ic="key"></span><h3>Ключи остаются у тебя</h3><p>Ключ Claude API и вход в аккаунт хранятся зашифрованными на твоём компьютере.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="tools" style="padding-top:20px"><div class="wrap">
+  <div class="center rv"><div class="kick">Инструменты</div><h2 class="h2">Бесплатно <em>прямо на сайте</em></h2>
+    <p class="sub">Без установки — пригодятся, даже если Deadlock Plus у тебя ещё нет.</p></div>
+  <div class="tools rv">
+    <div class="tool-tabs" role="tablist">
+      <button class="on" data-tool="roll"><span class="ab" data-ic="dice"></span><b>Случайный герой</b><small>кто сегодня на линии</small></button>
+      <button data-tool="xh"><span class="ab" data-ic="target"></span><b>Генератор прицела</b><small>собери и скопируй команды</small></button>
+      <button data-tool="cfg"><span class="ab" data-ic="code"></span><b>Конструктор autoexec</b><small>готовый файл за минуту</small></button>
+    </div>
+    <div class="tool" data-pane="roll">
+      <div class="roll-stage"><div class="roll-track" id="roll-track"></div><div class="roll-pick"></div></div>
+      <div class="roll-out"><div><small>Твой герой</small><b id="roll-name">—</b></div><button class="btn acc big" id="roll-go">Крутить</button></div>
+    </div>
+    <div class="tool" data-pane="xh" hidden>
+      <div class="xh-l"><div class="xh-view" id="xh-view"></div><div class="xh-sw" id="xh-sw"></div></div>
+      <div class="xh-r">
+        <label>Зазор <b data-v="gap"></b><input type="range" min="-10" max="30" value="0" data-x="gap"></label>
+        <label>Длина <b data-v="height"></b><input type="range" min="0" max="40" value="16" data-x="height"></label>
+        <label>Толщина <b data-v="width"></b><input type="range" min="1" max="10" value="4" data-x="width"></label>
+        <label>Видимость усиков <b data-v="pip"></b><input type="range" min="0" max="100" value="100" data-x="pip"></label>
+        <label>Видимость точки <b data-v="dot"></b><input type="range" min="0" max="100" value="100" data-x="dot"></label>
+        <label class="chk"><input type="checkbox" data-x="border"> обводка усиков</label>
+        <div class="code-out" id="xh-code"></div>
+        <button class="btn acc" id="xh-copy">Скопировать команды</button>
+        <p class="note-s">Вставь в консоль игры (~). В Deadlock Plus прицел меняется кнопкой и сохраняется в настройках игры.</p>
+      </div>
+    </div>
+    <div class="tool" data-pane="cfg" hidden>
+      <div class="cfg-l">
+        <label>Соотношение сторон (шире обзор)<select data-c="aspect"><option value="">как в игре</option><option value="1.78">1.78 — 16:9</option><option value="2">2 — шире</option><option value="2.33">2.33 — 21:9</option><option value="3">3 — максимум</option></select></label>
+        <label class="chk"><input type="checkbox" data-c="solo"> только соло-игроки в подборе</label>
+        <label class="chk"><input type="checkbox" data-c="hp"> новая полоса здоровья</label>
+        <label>Регион подбора (нужен VPN)<select data-c="region"><option value="">как в игре</option><option value="1">Европа</option><option value="0">Сев. Америка</option><option value="2">Азия</option><option value="3">Юж. Америка</option><option value="5">Океания</option></select></label>
+        <label>FPS-лимит<input type="number" min="0" max="999" placeholder="без лимита" data-c="fps"></label>
+      </div>
+      <div class="cfg-r"><div class="code-out" id="cfg-code"></div>
+        <div class="cta" style="margin-top:12px"><button class="btn acc" id="cfg-dl">Скачать autoexec.cfg</button><button class="btn" id="cfg-copy">Скопировать</button></div>
+        <p class="note-s">Положи файл в папку <code>Deadlock/game/citadel/cfg</code>. В Deadlock Plus те же настройки — переключателями.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="faq" style="padding-top:20px"><div class="wrap faq-wrap">
+  <div class="rv"><div class="kick">Вопросы</div><h2 class="h2">Частые <em>вопросы</em></h2>
+    <p class="sub" style="margin:16px 0 0">Не нашёл ответ? Напиши в <a href="https://github.com/BurdenBoy/deadlockplus/issues">Issues на GitHub</a>.</p></div>
+  <div class="faq rv">
+    <details open><summary>Это безопасно? Не забанят?</summary><p>Deadlock Plus не читает память игры и ничего не внедряет в её процесс — это отдельное окно поверх игры. Статистика берётся из публичного deadlock-api. Моды меняют только внешний вид, как разрешает Valve, и видны только тебе.</p></details>
+    <details><summary>Почему Windows пишет «Windows защитил ваш компьютер»?</summary><p>Так SmartScreen реагирует на новые программы без платной подписи. Нажми «Подробнее» → «Выполнить в любом случае». Предупреждение не значит, что файл опасен.</p></details>
+    <details><summary>Как поставить моды?</summary><p>Открой «Магазин модов», нажми «Установить» и запусти игру кнопкой «Играть с модами». Лаунчер сам положит файлы в нужную папку и подключит их.</p></details>
+    <details><summary>Как убрать все моды?</summary><p>Нажми «Без модов» в шапке лаунчера — игра запустится чистой. Или «Настройки → Вернуть игру как было»: моды уйдут из папки игры, библиотека останется.</p></details>
+    <details><summary>После обновления Deadlock моды пропали</summary><p>Обновление может вернуть файлы игры. Лаунчер это заметит и покажет полосу «Моды перестали загружаться» с кнопкой «Вернуть моды».</p></details>
+    <details><summary>Нужен ли ключ для AI-тренера?</summary><p>Да, свой ключ Claude API — он хранится зашифрованным на твоём компьютере. Всё остальное работает без ключа.</p></details>
+    <details><summary>Почему в «Матчах» пусто?</summary><p>Матчи берутся из deadlock-api — там они появляются после игр. Если ты играешь с другого аккаунта Steam, укажи его ID в разделе «Матчи».</p></details>
   </div>
 </div></section>
 
@@ -132,11 +201,13 @@
 
 <footer><div class="wrap">
   <span>© 2026 Deadlock Plus · BurdenBoy</span><span class="sp"></span>
+  <a href="changelog.html">Изменения</a>
   <a href="privacy.html">Конфиденциальность</a>
   <a href="https://github.com/BurdenBoy/deadlockplus/releases">Все версии</a>
   <span>Deadlock — товарный знак Valve. Deadlock Plus не связан с Valve.</span>
 </div></footer>
 <script src="assets/features.js"></script>
 <script src="fx.js"></script>
+<script src="tools.js"></script>
 </body>
 </html>

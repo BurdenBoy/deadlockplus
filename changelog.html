@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deadlock Plus — что нового</title>
+<meta name="description" content="Все изменения Deadlock Plus: лаунчер, моды, оверлей в игре и AI-тренер — по версиям, с поиском.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Oswald:wght@500;700&family=Playfair+Display:ital,wght@0,900;1,900&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav class="nav solid"><div class="pill">
+  <a class="brand" href="./"><img src="assets/icon.svg" alt="" width="38" height="38">Deadlock <span>Plus</span></a>
+  <div class="links"><a href="./#features">Функции</a><a href="./#shots">Лаунчер</a><a href="./#tools">Инструменты</a><a href="changelog.html" style="color:var(--cream)">Изменения</a><a href="./#faq">Вопросы</a></div>
+  <a class="btn acc small" href="./#download">Скачать</a>
+</div></nav>
+
+<main class="cl">
+  <div class="kick">Изменения</div>
+  <h1 class="h2">Что <em>нового</em></h1>
+  <p class="sub" id="cl-sum" style="color:var(--muted);margin:10px 0 0"></p>
+  <div class="cl-bar">
+    <input type="search" id="cl-q" placeholder="Поиск по изменениям…" aria-label="Поиск по изменениям">
+    <div class="seg2" id="cl-app"></div>
+    <div class="seg2" id="cl-kind"></div>
+  </div>
+  <div id="cl-list"></div>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Deadlock Plus · BurdenBoy</span><span class="sp"></span>
+  <a href="./">На главную</a>
+  <a href="privacy.html">Конфиденциальность</a>
+  <a href="https://github.com/BurdenBoy/deadlockplus/releases">Все версии</a>
+</div></footer>
+<script src="assets/changelog.js"></script>
+<script src="fx.js"></script>
+<script>
+// Changelog page: the app's own changelog.js, newest first, with search, a launcher / overlay
+// switch and filters by kind of change. Each version has its own link (#v1.4.0).
+(function () {
+  const log = window.CHANGELOG || [];
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const KIND = { new: "Новое", improved: "Улучшено", fix: "Исправлено" };
+  const APP = { all: "Всё", launcher: "Лаунчер", overlay: "Оверлей в игре" };
+  const F = { q: "", app: "all", kind: "all" };
+  const appOf = (g, it) => it[2] || g.app || "both";
+  const okApp = (a) => F.app === "all" || a === "both" || a === F.app;
+  // every change as a flat row, for counting
+  const rows = log.flatMap((r) => r.groups.flatMap((g) => g.items.map((it) => ({ v: r.v, kind: g.kind, app: appOf(g, it), text: it[0] }))));
+  const date = (d) => (d ? new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long", year: "numeric" }).format(new Date(d + "T12:00:00")) : "");
+  const mark = (t) => { const e = esc(t); if (!F.q) return e; const i = e.toLowerCase().indexOf(esc(F.q).toLowerCase()); return i < 0 ? e : e.slice(0, i) + "<mark>" + e.slice(i, i + esc(F.q).length) + "</mark>" + e.slice(i + esc(F.q).length); };
+  const plural = (n, a, b, c) => { const x = n % 10, y = n % 100; return x === 1 && y !== 11 ? a : x >= 2 && x <= 4 && (y < 12 || y > 14) ? b : c; };
+
+  function controls() {
+    const vis = rows.filter((r) => okApp(r.app) && (!F.q || r.text.toLowerCase().includes(F.q.toLowerCase())));
+    document.getElementById("cl-app").innerHTML = Object.entries(APP).map(([k, l]) => `<button data-app="${k}" class="${F.app === k ? "on" : ""}">${l}</button>`).join("");
+    document.getElementById("cl-kind").innerHTML = [["all", "Все", vis.length], ...Object.entries(KIND).map(([k, l]) => [k, l, vis.filter((r) => r.kind === k).length])]
+      .map(([k, l, n]) => `<button data-kind="${k}" class="${F.kind === k ? "on" : ""}">${l}<small>${n}</small></button>`).join("");
+    document.querySelectorAll("[data-app]").forEach((b) => (b.onclick = () => { F.app = b.dataset.app; draw(); }));
+    document.querySelectorAll("[data-kind]").forEach((b) => (b.onclick = () => { F.kind = b.dataset.kind; draw(); }));
+  }
+
+  function draw() {
+    controls();
+    const q = F.q.toLowerCase();
+    const html = log.map((r) => {
+      const groups = r.groups.filter((g) => F.kind === "all" || g.kind === F.kind).map((g) => {
+        const items = g.items.filter((it) => okApp(appOf(g, it)) && (!q || it[0].toLowerCase().includes(q)));
+        if (!items.length) return "";
+        const app = g.app && g.app !== "both" ? `<span class="cl-app">${APP[g.app]}</span>` : "";
+        return `<div class="cl-g"><h4><span class="cl-k ${g.kind}">${KIND[g.kind] || ""}</span>${esc(g.title[0])}${app}</h4><ul>${items.map((it) => `<li>${mark(it[0])}</li>`).join("")}</ul></div>`;
+      }).join("");
+      if (!groups) return "";
+      return `<section class="cl-v" id="v${esc(r.v)}"><div class="cl-vh"><h3>${esc(r.v)}</h3><small>${esc(date(r.date))}</small><a href="#v${esc(r.v)}" data-link="v${esc(r.v)}">ссылка</a></div>${groups}</section>`;
+    }).join("");
+    document.getElementById("cl-list").innerHTML = html || `<div class="cl-empty">Ничего не нашлось</div>`;
+    document.querySelectorAll("[data-link]").forEach((a) => (a.onclick = (e) => {
+      e.preventDefault();
+      const url = location.href.split("#")[0] + "#" + a.dataset.link;
+      history.replaceState(null, "", "#" + a.dataset.link);
+      navigator.clipboard.writeText(url).then(() => { a.textContent = "скопировано ✓"; setTimeout(() => (a.textContent = "ссылка"), 1500); }).catch(() => {});
+    }));
+  }
+
+  document.getElementById("cl-sum").textContent = `${rows.length} ${plural(rows.length, "изменение", "изменения", "изменений")} в ${log.length} ${plural(log.length, "версии", "версиях", "версиях")}, новые сверху.`;
+  let t = 0;
+  document.getElementById("cl-q").oninput = (e) => { clearTimeout(t); t = setTimeout(() => { F.q = e.target.value.trim(); draw(); }, 150); };
+  draw();
+  if (location.hash) { const el = document.getElementById(location.hash.slice(1)); if (el) setTimeout(() => el.scrollIntoView({ block: "start" }), 50); }
+})();
+</script>
+</body>
+</html>
