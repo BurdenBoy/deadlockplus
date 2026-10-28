@@ -11,13 +11,13 @@
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Exo+2:wght@700;800&family=Onest:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Oswald:wght@500;700&family=Playfair+Display:ital,wght@0,900;1,900&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
 
-<nav class="nav"><div class="wrap">
+<nav class="nav"><div class="pill">
   <a class="brand" href="#top" aria-label="Deadlock Plus">
     <svg class="eye" viewBox="0 0 512 512" aria-hidden="true">
       <defs><radialGradient id="g-bg" cx="50%" cy="40%" r="65%"><stop offset="0" stop-color="#2c2e37"/><stop offset="1" stop-color="#0e0f13"/></radialGradient>
@@ -34,71 +34,99 @@
     </svg>
     Deadlock <span>Plus</span>
   </a>
-  <div class="links"><a href="#features">Возможности</a><a href="#shots">Скриншоты</a><a href="#safe">Безопасность</a></div>
+  <span class="ver">v1.2 · Windows</span>
+  <div class="links"><a href="#features">Функции</a><a href="#shots">Лаунчер</a><a href="#safe">Безопасность</a></div>
   <a class="btn acc small" href="#download">Скачать</a>
 </div></nav>
 
 <header class="hero" id="top">
-  <div class="rays" aria-hidden="true"></div>
-  <div class="ghost" aria-hidden="true">DEADLOCK</div>
-  <canvas id="flow" aria-hidden="true"></canvas>
+  <div class="rings" aria-hidden="true"></div>
+  <div class="hero-poster" aria-hidden="true"><img src="assets/posters/hero.svg" alt=""></div>
+  <div class="floaters" aria-hidden="true">
+    <img class="fl" src="assets/cards/coach.svg" alt="" style="--r:-11deg;--d:8s;left:47%;top:13%">
+    <img class="fl dim" src="assets/cards/mods.svg" alt="" style="--r:9deg;--d:10s;right:3%;top:12%">
+    <img class="fl" src="assets/cards/themes.svg" alt="" style="--r:7deg;--d:9s;right:6%;bottom:9%">
+    <img class="fl dim" src="assets/cards/game.svg" alt="" style="--r:-8deg;--d:11s;left:44%;bottom:7%">
+    <img class="fl dim" src="assets/cards/region.svg" alt="" style="--r:12deg;--d:12s;left:2%;bottom:5%">
+  </div>
   <div class="wrap hero-grid">
     <div>
-      <div class="kicker">Оверлей · Моды · AI-тренер</div>
+      <div class="badge"><i></i>Версия 1.2 · Windows 10 / 11</div>
       <h1 class="title"><span data-letters>Deadlock</span><span class="p" data-letters>Plus</span></h1>
+      <div class="tags"><span>Оверлей</span><span>Моды</span><span>AI-тренер</span></div>
       <p class="lead">Подсказывает <b>что и когда покупать</b> прямо в матче, ставит <b>моды в один клик</b> и отвечает на вопросы <b>голосом</b> — как Dota Plus, только для Deadlock.</p>
       <div class="cta">
         <a class="btn acc big" href="https://github.com/Lopstik/deadlockplus/releases/latest/download/DeadlockPlus-Setup.exe">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10 4.5v7H3zM11 4.3 21 3v8.5H11zM3 12.5h7v7l-7-1zM11 12.5h10V21l-10-1.4z"/></svg>Скачать для Windows</a>
-        <a class="btn big" href="#features">Что умеет</a>
+        <a class="btn big" href="#features">Функции</a>
       </div>
-      <div class="meta"><b>Бесплатно</b> · Windows 10 / 11 · v1.2.0 · не связан с Valve</div>
+      <div class="meta"><b>Бесплатно</b> · не связан с Valve · не трогает процесс игры</div>
     </div>
-    <div class="shot3d"><div class="float"><div class="frame"><img src="assets/shot-home.webp" alt="Лаунчер Deadlock Plus: мод недели и популярные моды" width="1220" height="790"></div></div></div>
+    <div class="hero-shot">
+      <div class="print"><img src="assets/shot-home.webp" alt="Лаунчер Deadlock Plus: мод недели и популярные моды" width="1220" height="790"></div>
+      <div class="abils" data-abils="soul up spark box"></div>
+    </div>
   </div>
 </header>
 
+<div class="tapes" aria-hidden="true">
+  <div class="tape a"><div class="run" data-tape="Оверлей|Что покупать|AI-тренер|Голосом|Моды GameBanana|Регион|Бесплатно"></div></div>
+  <div class="tape b"><div class="run" data-tape="Deadlock Plus|Insert — меню|Без инъекций|Темы и частицы|Win+H|Твой пик против их пика"></div></div>
+</div>
+
 <section class="sec" id="features"><div class="wrap">
-  <div class="sec-h rv"><div class="kicker">Возможности</div><h2>Всё для матча <em>в одном окне</em></h2>
-    <p>Работает поверх игры в режиме «Без рамки». Открывается клавишей Insert или кликом по значку в углу экрана.</p></div>
-  <div class="banners">
-    <a class="banner rv" href="#download" style="--glow:rgba(229,72,77,.3)"><img src="assets/banner-deadlockplus.svg" alt="Deadlock Plus — помощник для Deadlock: оверлей, моды и AI-тренер" width="1200" height="300"></a>
-    <a class="banner rv" href="#shots" style="--glow:rgba(74,163,240,.3)"><img src="assets/banner-overlay.svg" alt="Оверлей в игре: что и когда покупать, прокачка, линия или лес" width="1200" height="300" loading="lazy"></a>
-    <a class="banner rv" href="#shots" style="--glow:rgba(255,210,122,.28)"><img src="assets/banner-ai.svg" alt="AI-тренер: Claude отвечает прямо в матче текстом или голосом" width="1200" height="300" loading="lazy"></a>
-    <a class="banner rv" href="#shots" style="--glow:rgba(157,140,255,.3)"><img src="assets/banner-mods.svg" alt="Моды в один клик: каталог GameBanana в лаунчере" width="1200" height="300" loading="lazy"></a>
+  <div class="center rv" style="margin-bottom:46px"><div class="kick">Функции</div><h2 class="h2">Всё для матча <em>в одном окне</em></h2>
+    <p class="sub">Работает поверх игры в режиме «Без рамки». Открывается клавишей Insert или кликом по значку в углу экрана.</p></div>
+  <div class="sel rv" id="sel">
+    <div class="sel-left">
+      <div class="rings" aria-hidden="true"></div>
+      <h3 class="sel-h">Выбери функцию</h3>
+      <div class="sel-grid" role="tablist" aria-label="Функции"></div>
+      <div class="sel-info"><b id="si-lead"></b><p id="si-desc"></p><div class="bar" aria-hidden="true"></div></div>
+    </div>
+    <div class="sel-poster" id="sp">
+      <div class="art"></div>
+      <div class="sp-txt"><div class="sp-num" id="sp-num"></div><h3 class="sp-name" id="sp-name"></h3><div class="tags sp-tags" id="sp-tags"></div><div class="sp-abs" id="sp-abs"></div></div>
+    </div>
   </div>
 </div></section>
 
-<section class="sec" id="shots" style="padding-top:20px"><div class="wrap">
-  <div class="sec-h rv"><div class="kicker">Скриншоты</div><h2>Лаунчер, который <em>хочется открыть</em></h2></div>
-  <div class="shots rv">
-    <figure><img src="assets/shot-home.webp" alt="Главная: мод недели и популярные моды" loading="lazy"><figcaption>Главная — мод недели и популярное с GameBanana</figcaption></figure>
-    <figure><img src="assets/shot-game.webp" alt="Настройки игры" loading="lazy"><figcaption>Настройки игры — команды без ручной правки</figcaption></figure>
-    <figure><img src="assets/shot-settings.webp" alt="Оформление" loading="lazy"><figcaption>Оформление — темы, анимации, эффекты фона</figcaption></figure>
+<section class="sec" id="shots" style="padding-top:30px"><div class="wrap">
+  <div class="center rv"><div class="kick">Лаунчер</div><h2 class="h2">Лаунчер, который <em>хочется открыть</em></h2></div>
+  <div class="tabs rv" role="tablist">
+    <button class="on" data-shot="home" data-cap="Главная — мод недели и популярное с GameBanana">Главная</button>
+    <button data-shot="store" data-cap="Магазин модов — поиск, лайки и установка в один клик">Моды</button>
+    <button data-shot="game" data-cap="Настройки игры — команды без ручной правки конфигов">Настройки игры</button>
+    <button data-shot="settings" data-cap="Оформление — темы, анимации и эффекты фона">Оформление</button>
   </div>
+  <div class="screen rv"><div class="inner"><img src="assets/shot-home.webp" alt="Лаунчер Deadlock Plus" id="shot"></div><div class="cap" id="shot-cap">Главная — мод недели и популярное с GameBanana</div></div>
 </div></section>
 
-<section class="sec" id="safe" style="padding-top:20px"><div class="wrap">
-  <div class="sec-h rv"><div class="kicker">Безопасность</div><h2>Не трогает <em>игру</em></h2>
-    <p>Deadlock Plus — отдельное окно поверх игры. Только публичная статистика и твои собственные настройки.</p></div>
-  <div class="safe rv">
-    <div><b>Не читает память игры</b><p>Ничего не внедряет в процесс Deadlock. Данные матчей — из публичного deadlock-api.</p></div>
-    <div><b>Моды — только внешний вид</b><p>Скины, HUD и звуки видишь только ты. Моды, меняющие геймплей, в каталоге скрыты.</p></div>
-    <div><b>Ключи остаются у тебя</b><p>Ключ Claude API и вход в аккаунт хранятся зашифрованными на твоём компьютере.</p></div>
+<section class="sec" id="safe" style="padding-top:40px"><div class="wrap">
+  <div class="center rv"><div class="kick">Безопасность</div><h2 class="h2">Не трогает <em>игру</em></h2>
+    <p class="sub">Deadlock Plus — отдельное окно поверх игры. Только публичная статистика и твои собственные настройки.</p></div>
+  <div class="safe">
+    <div class="rv"><span class="ab" data-ic="shield"></span><h3>Не читает память игры</h3><p>Ничего не внедряет в процесс Deadlock. Данные матчей — из публичного deadlock-api.</p></div>
+    <div class="rv"><span class="ab" data-ic="box"></span><h3>Моды — только внешний вид</h3><p>Скины, HUD и звуки видишь только ты. Моды, меняющие геймплей, в каталоге скрыты.</p></div>
+    <div class="rv"><span class="ab" data-ic="key"></span><h3>Ключи остаются у тебя</h3><p>Ключ Claude API и вход в аккаунт хранятся зашифрованными на твоём компьютере.</p></div>
   </div>
 </div></section>
 
 <section class="sec" id="download" style="padding-top:20px"><div class="wrap">
   <div class="dl rv">
-    <div class="kicker">Скачать</div>
-    <h2 style="margin-top:16px">Играй <span>Plus</span></h2>
-    <p>Установщик с ярлыками на рабочем столе и в «Пуске» — или переносная версия одним файлом, без установки.</p>
-    <div class="cta">
-      <a class="btn acc big" href="https://github.com/Lopstik/deadlockplus/releases/latest/download/DeadlockPlus-Setup.exe">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10 4.5v7H3zM11 4.3 21 3v8.5H11zM3 12.5h7v7l-7-1zM11 12.5h10V21l-10-1.4z"/></svg>Установщик · 80 МБ</a>
-      <a class="btn big" href="https://github.com/Lopstik/deadlockplus/releases/latest/download/DeadlockPlus-Portable.exe">Переносная версия</a>
+    <div class="dl-txt">
+      <div class="kick">Скачать</div>
+      <h2 class="h2">Играй <span>Plus</span></h2>
+      <div class="tags"><span>Бесплатно</span><span>Windows</span><span>80 МБ</span></div>
+      <p>Установщик с ярлыками на рабочем столе и в «Пуске» — или переносная версия одним файлом, без установки.</p>
+      <div class="cta">
+        <a class="btn acc big" href="https://github.com/Lopstik/deadlockplus/releases/latest/download/DeadlockPlus-Setup.exe">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10 4.5v7H3zM11 4.3 21 3v8.5H11zM3 12.5h7v7l-7-1zM11 12.5h10V21l-10-1.4z"/></svg>Установщик</a>
+        <a class="btn big" href="https://github.com/Lopstik/deadlockplus/releases/latest/download/DeadlockPlus-Portable.exe">Переносная версия</a>
+      </div>
+      <div class="note">Windows может показать «Windows защитил ваш компьютер» — нажми <b>«Подробнее» → «Выполнить в любом случае»</b>. Игре нужен режим экрана «Без рамки» или «В окне».</div>
     </div>
-    <div class="note">Windows может показать «Windows защитил ваш компьютер» — нажми <b>«Подробнее» → «Выполнить в любом случае»</b>. Игре нужен режим экрана «Без рамки» или «В окне».</div>
+    <div class="dl-art" aria-hidden="true"><img src="assets/posters/hero.svg" alt="" loading="lazy"><span class="ab" data-ic="eye"></span></div>
   </div>
 </div></section>
 
@@ -108,6 +136,7 @@
   <a href="https://github.com/Lopstik/deadlockplus/releases">Все версии</a>
   <span>Deadlock — товарный знак Valve. Deadlock Plus не связан с Valve.</span>
 </div></footer>
+<script src="assets/features.js"></script>
 <script src="fx.js"></script>
 </body>
 </html>

@@ -1,60 +1,146 @@
-// Shared page effects: the particle figure-eight behind the hero, the title's letters dropping in,
-// the logo's eye following the cursor, a light following the cursor over banners, the nav turning
-// solid on scroll and sections sliding in.
+// Page effects: title letters dropping in, the occult rings, ability icons, marquee tapes, the
+// "select a feature" screen, launcher screenshot tabs, floating cards that follow the cursor,
+// the logo's eye, the nav and sections sliding in. Feature data comes from assets/features.js.
 (function () {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const D = window.DLP || { features: [], icons: {} };
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const svgIcon = (name) => `<svg viewBox="0 0 24 24" aria-hidden="true">${D.icons[name] || ""}</svg>`;
 
   // ---------- title letters drop in one by one ----------
-  document.querySelectorAll("h1.title").forEach((h) => {
+  $$("h1.title").forEach((h) => {
     let n = 0;
-    h.querySelectorAll("[data-letters]").forEach((part) => {
+    $$("[data-letters]", h).forEach((part) => {
       const text = part.textContent;
       part.setAttribute("aria-label", text);
-      part.innerHTML = [...text].map((ch) => `<span class="l" aria-hidden="true" style="animation-delay:${(0.15 + n++ * 0.06).toFixed(2)}s">${ch}</span>`).join("");
+      part.innerHTML = [...text].map((ch) => `<span class="l" aria-hidden="true" style="animation-delay:${(0.2 + n++ * 0.055).toFixed(2)}s">${ch}</span>`).join("");
     });
   });
 
-  // ---------- particle band along a figure eight ----------
-  const cv = document.getElementById("flow");
-  if (cv) {
-    const cx = cv.getContext("2d");
-    let w = 0, h = 0, P = [], raf = 0;
-    const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
-    const size = () => {
-      const dpr = Math.min(2, devicePixelRatio || 1);
-      w = cv.clientWidth; h = cv.clientHeight;
-      cv.width = w * dpr; cv.height = h * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = Math.min(4200, Math.round((w * h) / 520));
-      P = Array.from({ length: n }, () => ({ u: Math.random(), v: gauss(), s: 0.5 + Math.random() * 1.5, o: 0.15 + Math.random() * 0.6, k: Math.random() * 6.28, sp: 0.4 + Math.random() }));
+  // ---------- thin rotating rings ----------
+  const ticks = (r, n, len) => Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * Math.PI * 2, c = Math.cos(a), s = Math.sin(a);
+    return `M${(500 + c * (r - len)).toFixed(1)} ${(500 + s * (r - len)).toFixed(1)}L${(500 + c * r).toFixed(1)} ${(500 + s * r).toFixed(1)}`;
+  }).join("");
+  const spokes = Array.from({ length: 6 }, (_, i) => { const a = (i / 6) * Math.PI * 2 + 0.26; return `M500 500L${(500 + Math.cos(a) * 300).toFixed(1)} ${(500 + Math.sin(a) * 300).toFixed(1)}`; }).join("");
+  const RINGS = `<svg viewBox="0 0 1000 1000" fill="none" stroke="#fff" stroke-opacity=".06" stroke-width="1.6">
+    <g class="r1"><circle cx="500" cy="500" r="480"/><circle cx="500" cy="500" r="300"/><path d="${ticks(480, 72, 26)}"/></g>
+    <g class="r2"><circle cx="500" cy="500" r="400" stroke-dasharray="4 12"/><path d="${spokes}"/><circle cx="500" cy="500" r="120"/><circle cx="500" cy="500" r="180" stroke-dasharray="2 8"/></g></svg>`;
+  $$(".rings").forEach((el) => (el.innerHTML = RINGS));
+
+  // ---------- ability icons ----------
+  $$("[data-ic]").forEach((el) => (el.innerHTML = svgIcon(el.dataset.ic)));
+  $$("[data-abils]").forEach((box) => {
+    box.innerHTML = box.dataset.abils.split(" ").map((n, i) => `<span class="ab" style="animation-delay:${(0.9 + i * 0.1).toFixed(2)}s">${svgIcon(n)}</span>`).join("");
+  });
+
+  // ---------- marquee tapes (content doubled for a seamless loop) ----------
+  $$("[data-tape]").forEach((run) => {
+    const items = run.dataset.tape.split("|").map((t) => `<span>${t}</span>`).join("");
+    run.innerHTML = items.repeat(4);
+  });
+
+  // ---------- select a feature ----------
+  const sel = $("#sel");
+  if (sel && D.features.length) {
+    const F = D.features, grid = $(".sel-grid", sel), art = $(".art", sel), poster = $("#sp");
+    const name = $("#sp-name"), num = $("#sp-num"), tags = $("#sp-tags"), abs = $("#sp-abs"), lead = $("#si-lead"), desc = $("#si-desc"), bar = $(".bar", sel);
+    const T = 5000;
+    grid.innerHTML = F.map((f, i) => `<button class="pick" role="tab" data-i="${i}" aria-label="${f.name}"><img src="assets/cards/${f.id}.svg" alt="" width="240" height="320"><span class="nm">${f.name}</span></button>`).join("");
+    bar.innerHTML = F.map(() => "<i></i>").join("");
+    F.forEach((f) => { new Image().src = `assets/posters/${f.id}.svg`; });
+    const picks = $$(".pick", grid), bars = $$("i", bar);
+    let cur = -1, timer = 0, hover = false;
+    const replay = (el) => { el.classList.remove("go"); void el.offsetWidth; el.classList.add("go"); };
+    const show = (i) => {
+      if (i === cur) return;
+      cur = i;
+      const f = F[i];
+      picks.forEach((p, k) => { p.classList.toggle("on", k === i); p.setAttribute("aria-selected", k === i); });
+      bars.forEach((b, k) => { b.className = k < i ? "done" : k === i ? "on" : ""; });
+      bars[i].style.setProperty("--t", T + "ms");
+      poster.style.setProperty("--c1", f.c1);
+      poster.style.setProperty("--c2", f.c2);
+      const img = new Image();
+      img.src = `assets/posters/${f.id}.svg`;
+      img.alt = "";
+      img.className = "out";
+      art.appendChild(img);
+      requestAnimationFrame(() => requestAnimationFrame(() => img.classList.remove("out")));
+      $$("img", art).slice(0, -1).forEach((old) => { old.classList.add("out"); setTimeout(() => old.remove(), 700); });
+      num.textContent = `${String(i + 1).padStart(2, "0")} / ${String(F.length).padStart(2, "0")}`;
+      name.textContent = f.name;
+      tags.innerHTML = f.tags.map((t) => `<span>${t}</span>`).join("");
+      abs.innerHTML = f.ab.map((a) => `<span class="ab">${svgIcon(a)}</span>`).join("");
+      lead.textContent = f.lead;
+      desc.textContent = f.desc.join(" ");
+      [name, tags, abs].forEach(replay);
     };
-    const mix = (t) => `rgb(${Math.round(229 + (157 - 229) * t)},${Math.round(72 + (140 - 72) * t)},${Math.round(77 + (255 - 77) * t)})`;
-    const t0 = performance.now();
-    const frame = (now) => {
-      const t = (now - t0) / 1000;
-      cx.clearRect(0, 0, w, h);
-      const wide = w > 900;
-      const a = wide ? Math.min(w * 0.3, h * 0.75) : Math.min(w * 0.42, h * 0.5);
-      const ox = wide ? w * 0.66 : w * 0.5, oy = wide ? h * 0.52 : h * 0.72;
-      const L = (q) => { const s = Math.sin(q), c = Math.cos(q), d = 1 + s * s; return [a * c / d, a * s * c / d]; };
-      for (const p of P) {
-        const tt = (p.u + (reduce ? 0 : t * 0.012 * p.sp)) * Math.PI * 2;
-        const [x0, y0] = L(tt), [x1, y1] = L(tt + 0.002), tl = Math.hypot(x1 - x0, y1 - y0) || 1;
-        const spread = a * 0.13 * p.v * (1 + 0.3 * Math.sin(t * 0.6 + p.k)) * (p.k > 5.9 ? 2.4 : 1);
-        const x = ox + x0 + (-(y1 - y0) / tl) * spread, y = oy + y0 + ((x1 - x0) / tl) * spread;
-        cx.globalAlpha = Math.min(1, p.o * (1.1 - Math.min(1, Math.abs(p.v)) * 0.6)) * 0.85;
-        cx.fillStyle = mix((Math.cos(tt) + 1) / 2);
-        cx.fillRect(x, y, p.s, p.s);
-      }
-      cx.globalAlpha = 1;
-      raf = reduce || document.hidden ? 0 : requestAnimationFrame(frame);
+    const schedule = () => {
+      clearTimeout(timer);
+      if (!hover && !reduce) timer = setTimeout(() => { show((cur + 1) % F.length); schedule(); }, T);
     };
-    new ResizeObserver(() => { size(); if (!raf) raf = requestAnimationFrame(frame); }).observe(cv);
-    document.addEventListener("visibilitychange", () => { if (!document.hidden && !raf) raf = requestAnimationFrame(frame); });
+    grid.addEventListener("click", (e) => {
+      const p = e.target.closest(".pick");
+      if (p) { show(+p.dataset.i); schedule(); }
+    });
+    grid.addEventListener("keydown", (e) => {
+      const d = { ArrowRight: 1, ArrowLeft: -1, ArrowDown: 5, ArrowUp: -5 }[e.key];
+      if (d == null) return;
+      e.preventDefault();
+      const i = (cur + d + F.length) % F.length;
+      show(i);
+      picks[i].focus();
+    });
+    sel.addEventListener("pointerenter", () => { hover = true; sel.classList.add("paused"); clearTimeout(timer); });
+    sel.addEventListener("pointerleave", () => {
+      hover = false;
+      sel.classList.remove("paused");
+      bars[cur].className = "";
+      void bars[cur].offsetWidth;
+      bars[cur].className = "on";
+      schedule();
+    });
+    show(0);
+    // start cycling once the screen is actually visible
+    new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { schedule(); io.disconnect(); } }, { threshold: 0.3 }).observe(sel);
+  }
+
+  // ---------- launcher screenshot tabs ----------
+  const shot = $("#shot");
+  if (shot) {
+    const cap = $("#shot-cap");
+    $$("[data-shot]").forEach((b) => {
+      new Image().src = `assets/shot-${b.dataset.shot}.webp`;
+      b.addEventListener("click", () => {
+        $$("[data-shot]").forEach((x) => x.classList.toggle("on", x === b));
+        shot.classList.add("out");
+        setTimeout(() => {
+          shot.src = `assets/shot-${b.dataset.shot}.webp`;
+          cap.textContent = b.dataset.cap;
+          shot.classList.remove("out");
+        }, 260);
+      });
+    });
+  }
+
+  // ---------- floating cards lean away from the cursor ----------
+  const fl = $$(".fl");
+  if (fl.length && !reduce) {
+    addEventListener("mousemove", (e) => {
+      const dx = e.clientX / innerWidth - 0.5, dy = e.clientY / innerHeight - 0.5;
+      fl.forEach((el, i) => {
+        const k = (i % 2 ? 26 : 16) * (el.classList.contains("dim") ? 0.6 : 1);
+        el.style.setProperty("--px", (-dx * k).toFixed(1) + "px");
+        el.style.setProperty("--py", (-dy * k).toFixed(1) + "px");
+      });
+    }, { passive: true });
   }
 
   // ---------- the logo's eye looks at the cursor ----------
-  document.querySelectorAll("svg.eye").forEach((logo) => {
-    const pupil = logo.querySelector(".pupil");
+  $$("svg.eye").forEach((logo) => {
+    const pupil = $(".pupil", logo);
     if (!pupil) return;
     let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
     const step = () => {
@@ -70,18 +156,11 @@
     });
   });
 
-  // ---------- a soft light follows the cursor over banners ----------
-  document.querySelectorAll(".banner").forEach((b) => b.addEventListener("mousemove", (e) => {
-    const r = b.getBoundingClientRect();
-    b.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
-    b.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
-  }));
-
   // ---------- nav and reveal ----------
-  const nav = document.querySelector(".nav");
+  const nav = $(".nav");
   const onScroll = () => nav && nav.classList.toggle("solid", scrollY > 24);
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
-  document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+  $$(".rv").forEach((el) => io.observe(el));
 })();
