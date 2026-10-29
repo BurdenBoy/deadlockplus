@@ -2,6 +2,31 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.9.0",
+    date: "2026-10-29",
+    groups: [
+      {
+        kind: "new",
+        app: "launcher",
+        title: ["Поиск тимейтов", "Teammate search"],
+        items: [
+          ["Новый раздел «Тимейты»: объявления игроков Deadlock Plus — герои, ранг, какой ранг ищут, регион, режим, язык и голосовой чат", "A new «Teammates» page: posts from Deadlock Plus players — heroes, rank, the ranks they want, region, mode, language and voice"],
+          ["Своё объявление висит час; профиль Steam показывается, только если ты сам это включил", "Your own post stays up for an hour; your Steam profile shows only if you turn it on"],
+          ["Фильтр «Подходят мне по рангу», кнопка «Пожаловаться» — после трёх жалоб объявления игрока скрываются на сутки", "A «Fit my rank» filter and a «Report» button — after three reports a player's posts are hidden for a day"],
+          ["Нужен аккаунт Deadlock Plus — так меньше спама", "Needs a Deadlock Plus account — less spam that way"],
+        ],
+      },
+      {
+        kind: "new",
+        app: "launcher",
+        title: ["Код сборки для друга", "Build code for a friend"],
+        items: [
+          ["В конструкторе сборок: «Код для друга» копирует сборку кодом DLB1-…, друг вставляет его и получает ту же сборку", "In the build planner: «Code for a friend» copies the build as a DLB1-… code; a friend pastes it and gets the same build"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.8.3",
     date: "2026-10-29",
     groups: [
