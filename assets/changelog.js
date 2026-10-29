@@ -2,6 +2,22 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.8.0",
+    date: "2026-10-29",
+    groups: [
+      {
+        kind: "new",
+        app: "both",
+        title: ["Конструктор сборок", "Build planner"],
+        items: [
+          ["Новый раздел лаунчера: выбери героя и собери сборку из магазина по слотам и уровням, с поиском по названию", "A new launcher page: pick a hero and put a build together from the shop by slot and tier, with search"],
+          ["У каждого предмета — цена и насколько чаще с ним выигрывают на этом герое; в сборке — общая цена, раскладка по слотам и обычное время покупки", "Each item shows its cost and how much more often players win with it on this hero; the build shows the total, the split by slot and usual buy times"],
+          ["Сборки сохраняются для каждого героя; «Следовать в оверлее» — панель в игре подскажет эти предметы в твоём порядке", "Builds are saved per hero; «Follow in overlay» makes the in-game panel suggest these items in your order"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.7.1",
     date: "2026-10-29",
     groups: [
