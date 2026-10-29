@@ -2,6 +2,22 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.7.0",
+    date: "2026-10-29",
+    groups: [
+      {
+        kind: "new",
+        app: "overlay",
+        title: ["Второй экран на телефоне", "Second screen on a phone"],
+        items: [
+          ["Настройки оверлея → «Второй экран на телефоне»: включи и наведи камеру телефона на QR-код. Телефон и компьютер — в одной сети Wi-Fi", "Overlay settings → «Second screen on a phone»: turn it on and point the phone's camera at the QR code. The phone and the computer must be on the same Wi-Fi"],
+          ["На телефоне: часы матча, объекты с кнопкой «Мид-босс убит», что когда покупать, прокачка, линия или лес, души и напарник на линии", "On the phone: the match clock, objectives with a «Mid Boss killed» button, what to buy when, abilities, lane or jungle, souls and the lane partner"],
+          ["По умолчанию выключено. Ссылка с секретным ключом, «Новая ссылка» отключает старую; телефон может только смотреть и отмечать мид-босса", "Off by default. The link carries a secret key and «New link» turns the old one off; the phone can only view and mark the Mid Boss"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.6.1",
     date: "2026-10-29",
     groups: [
