@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Мета Deadlock — тир-лист героев и изменения после патча</title>
+<meta name="description" content="Тир-лист героев Deadlock по рангам: винрейт и популярность за последние дни, кто стал сильнее и слабее после последнего большого патча. Обновляется сам по открытой статистике deadlock-api.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Oswald:wght@500;700&family=Playfair+Display:ital,wght@0,900;1,900&display=swap">
+<link rel="stylesheet" href="style.css?v=7c09d506">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav class="nav solid"><div class="pill">
+  <a class="brand" href="./"><img src="assets/icon.svg" alt="" width="38" height="38">Deadlock <span>Plus</span></a>
+  <div class="links"><a href="./#features">Функции</a><a href="./#tools">Инструменты</a><a href="meta.html" style="color:var(--cream)">Мета</a><a href="changelog.html">Изменения</a><a href="./#faq">Вопросы</a></div>
+  <a class="btn acc small" href="./#download">Скачать</a>
+</div></nav>
+
+<main class="cl mt">
+  <div class="kick">Мета</div>
+  <h1 class="h2">Тир-лист <em>героев</em></h1>
+  <p class="sub mt-lead">Кто сейчас выигрывает чаще всех на твоём ранге и кто изменился после последнего большого патча. Считается по открытой статистике матчей deadlock-api и обновляется сам.</p>
+  <div class="cl-bar">
+    <div class="seg2" id="mt-days"></div>
+    <select id="mt-rank" class="mt-sel" aria-label="Ранг"></select>
+    <span class="mt-n" id="mt-n"></span>
+  </div>
+  <div id="mt-tiers"><div class="mt-wait">Загружаю статистику…</div></div>
+
+  <h2 class="mt-h">После патча <em id="mt-pd"></em></h2>
+  <p class="mt-note">Винрейт за 14 дней до последнего большого патча и после него, все ранги. Герои, сыгранные меньше 2000 раз в каждом периоде, не учитываются.</p>
+  <div id="mt-patch"><div class="mt-wait">Сравниваю винрейты…</div></div>
+
+  <div class="mt-cta">
+    <div><b>Это на сайте. В приложении — больше.</b><span>Deadlock Plus подсказывает в игре, что покупать против этого состава, когда сильнее враги и когда возрождается мид-босс, а после матча разбирает твою игру против игроков твоего ранга.</span></div>
+    <a class="btn acc" href="./#download">Скачать бесплатно</a>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Deadlock Plus · BurdenBoy</span><span class="sp"></span>
+  <a href="./">На главную</a>
+  <a href="changelog.html">Изменения</a>
+  <a href="privacy.html">Конфиденциальность</a>
+</div></footer>
+<script src="lang.js?v=064ce8d1"></script>
+<script src="fx.js?v=adaf25cf"></script>
+<script>
+// Meta page: a hero tier list for a rank and period, and who moved after the last big patch,
+// straight from deadlock-api's public analytics in the visitor's browser.
+(function () {
+  const API = "https://api.deadlock-api.com", DAY = 86400;
+  const T = window.T || ((ru) => ru), EN = window.LANG === "en";
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const pct = (x, d = 1) => (x * 100).toFixed(d).replace(".", EN ? "." : ",") + "%";
+  const num = (n) => Math.round(n).toLocaleString(EN ? "en-US" : "ru-RU");
+  const get = async (p) => { const r = await fetch(API + p, { signal: AbortSignal.timeout(60000) }); if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); };
+  // whole days, so visitors repeat the same queries and deadlock-api answers from its cache
+  const day = () => Math.floor(Date.now() / 1000 / DAY) * DAY;
+  // win rate pulled toward 50% for small samples, so a hero with a few hundred games doesn't top the list
+  const shrunk = (w, n) => (w + 250) / (n + 500);
+  const TIERS = [["S", 0.15], ["A", 0.35], ["B", 0.65], ["C", 0.85], ["D", 1]];
+  const Q = { days: 14, rank: "all" };
+  let HEROES = null, RANKS = null;
+
+  async function assets() {
+    if (HEROES) return;
+    const [h, r] = await Promise.all([get("/v1/assets/heroes?only_active=true"), get("/v1/assets/ranks")]);
+    HEROES = {};
+    h.filter((x) => x.player_selectable && !x.disabled).forEach((x) => (HEROES[x.id] = { name: x.name, img: (x.images || {}).icon_image_small || "" }));
+    RANKS = r.filter((x) => x.tier >= 1).sort((a, b) => a.tier - b.tier);
+    document.getElementById("mt-rank").innerHTML = `<option value="all">${T("Все ранги", "All ranks")}</option>` +
+      RANKS.map((x) => `<option value="${x.tier}">${esc(x.name)}</option>`).join("");
+  }
+
+  async function tiers() {
+    const box = document.getElementById("mt-tiers");
+    box.innerHTML = `<div class="mt-wait">${T("Загружаю статистику…", "Loading stats…")}</div>`;
+    try {
+      await assets();
+      let q = `?min_unix_timestamp=${day() - Q.days * DAY}`;
+      // a rank and its neighbours: one rank alone is too few games for most heroes
+      if (Q.rank !== "all") { const t = +Q.rank, lo = Math.max(1, t - 1), hi = Math.min(11, t + 1); q += `&min_average_badge=${lo * 10 + 1}&max_average_badge=${hi * 10 + 6}`; }
+      const rows = (await get("/v1/analytics/hero-stats" + q)).filter((r) => HEROES[r.hero_id] && r.matches >= 50);
+      const games = rows.reduce((a, r) => a + r.matches, 0) / 12 || 1;
+      const list = rows.map((r) => ({ id: r.hero_id, wr: r.wins / r.matches, n: r.matches, pick: r.matches / games, s: shrunk(r.wins, r.matches) })).sort((a, b) => b.s - a.s);
+      list.forEach((r, i) => (r.tier = TIERS.find(([, upto]) => (i + 1) / list.length <= upto)[0]));
+      document.getElementById("mt-n").textContent = EN ? `${num(games)} matches` : `${num(games)} матчей`;
+      box.innerHTML = TIERS.map(([t]) => {
+        const hs = list.filter((r) => r.tier === t);
+        return `<div class="mt-row t${t}"><div class="mt-t">${t}</div><div class="mt-hs">${hs.map((r) => {
+          const h = HEROES[r.id];
+          return `<div class="mt-hero" title="${esc(h.name)} — ${T("винрейт", "win rate")} ${pct(r.wr)}, ${T("в", "in")} ${Math.round(r.pick * 100)}% ${T("матчей", "of matches")}"><img src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy"><b>${esc(h.name)}</b><small class="${r.wr >= 0.5 ? "up" : "down"}">${pct(r.wr)}</small></div>`;
+        }).join("")}</div></div>`;
+      }).join("") + `<p class="mt-note">${T("Порядок — по винрейту с поправкой на число матчей: у героя с малым числом игр он сдвинут к 50%. S — лучшие 15% героев, D — последние 15%.", "Order — by win rate adjusted for the number of matches: a hero with few games is pulled toward 50%. S — the top 15% of heroes, D — the bottom 15%.")}</p>`;
+    } catch (e) {
+      box.innerHTML = `<div class="mt-wait">${T("deadlock-api сейчас не ответил — обнови страницу через минуту.", "deadlock-api didn't answer — reload the page in a minute.")}</div>`;
+    }
+  }
+
+  async function patch() {
+    const box = document.getElementById("mt-patch");
+    try {
+      await assets();
+      const days = await get("/v1/patches/big-days");
+      const t = Math.floor(new Date(days[0]).getTime() / 1000);
+      document.getElementById("mt-pd").textContent = new Intl.DateTimeFormat(EN ? "en-GB" : "ru-RU", { day: "numeric", month: "long", year: "numeric" }).format(new Date(days[0]));
+      // after the patch: up to the last 30 days, so an old patch isn't one huge query
+      const from = Math.max(t, day() - 30 * DAY);
+      const [before, after] = await Promise.all([
+        get(`/v1/analytics/hero-stats?min_unix_timestamp=${t - 14 * DAY}&max_unix_timestamp=${t}`),
+        get(`/v1/analytics/hero-stats?min_unix_timestamp=${from}`),
+      ]);
+      const b = {};
+      before.forEach((d) => (b[d.hero_id] = d));
+      const rows = after.filter((d) => HEROES[d.hero_id] && b[d.hero_id] && d.matches >= 2000 && b[d.hero_id].matches >= 2000)
+        .map((d) => { const wa = d.wins / d.matches, wb = b[d.hero_id].wins / b[d.hero_id].matches; return { id: d.hero_id, wa, wb, dw: wa - wb }; });
+      const up = [...rows].sort((x, y) => y.dw - x.dw).slice(0, 6), down = [...rows].sort((x, y) => x.dw - y.dw).slice(0, 6);
+      const row = (r) => { const h = HEROES[r.id]; return `<div class="mt-d"><img src="${esc(h.img)}" alt="" loading="lazy"><span>${esc(h.name)}<small>${pct(r.wb)} → ${pct(r.wa)}</small></span><b class="${r.dw >= 0 ? "up" : "down"}">${r.dw >= 0 ? "+" : "−"}${Math.abs(r.dw * 100).toFixed(1).replace(".", EN ? "." : ",")}</b></div>`; };
+      box.innerHTML = rows.length ? `<div class="mt-two"><div class="mt-col"><h3 class="up">▲ ${T("Стали сильнее", "Got stronger")}</h3>${up.map(row).join("")}</div><div class="mt-col"><h3 class="down">▼ ${T("Стали слабее", "Got weaker")}</h3>${down.map(row).join("")}</div></div>`
+        : `<div class="mt-wait">${T("После патча ещё мало матчей — загляни через пару дней.", "Too few matches since the patch yet — check back in a couple of days.")}</div>`;
+    } catch (e) {
+      box.innerHTML = `<div class="mt-wait">${T("deadlock-api сейчас не ответил — обнови страницу через минуту.", "deadlock-api didn't answer — reload the page in a minute.")}</div>`;
+    }
+  }
+
+  function bar() {
+    document.getElementById("mt-days").innerHTML = [7, 14, 30].map((d) => `<button data-d="${d}" class="${Q.days === d ? "on" : ""}">${d} ${T("дней", "days")}</button>`).join("");
+    document.querySelectorAll("#mt-days [data-d]").forEach((b) => (b.onclick = () => { Q.days = +b.dataset.d; bar(); tiers(); }));
+  }
+  document.getElementById("mt-rank").onchange = (e) => { Q.rank = e.target.value; tiers(); };
+  bar();
+  tiers();
+  patch();
+})();
+</script>
+</body>
+</html>
