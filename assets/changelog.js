@@ -2,6 +2,23 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.7.1",
+    date: "2026-10-29",
+    groups: [
+      {
+        kind: "new",
+        app: "launcher",
+        title: ["Путь по рангу", "Ranked journey"],
+        items: [
+          ["«Матчи» → «Рейтинговые»: график ранга по играм, откуда начал, где сейчас и пик", "«Matches» → «Ranked»: your rank over the games, where you started, where you are and your peak"],
+          ["Очки за период, текущая серия и сколько раз сработала защита ранга", "Points over the period, the current streak and how often the rank shield kicked in"],
+          ["На каких героях ты поднимаешься, а на каких теряешь очки", "The heroes you climb on and the ones that cost you points"],
+          ["Как ты играешь после двух поражений подряд — и совет сделать перерыв, если хуже обычного", "How you play after two losses in a row — and a nudge to take a break if it's worse than usual"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.7.0",
     date: "2026-10-29",
     groups: [
