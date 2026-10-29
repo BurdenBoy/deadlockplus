@@ -2,6 +2,22 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.8.2",
+    date: "2026-10-29",
+    groups: [
+      {
+        kind: "new",
+        app: "overlay",
+        title: ["Разведка врагов", "Enemy scouting"],
+        items: [
+          ["В «Ручном драфте» и в live-матче — карточка «Разведка» по каждому вражескому герою", "In the manual draft and the live match — a «Scouting» card for each enemy hero"],
+          ["Когда он сильнее: винрейт в коротких, средних и долгих матчах и совет — играть осторожно рано или давить и не затягивать", "When he is strongest: win rate in short, medium and long matches, with advice — play safe early or push and don't drag it out"],
+          ["Три предмета, которые чаще выигрывают против него, с поправкой на силу самого героя", "Three items that win more often against him, adjusted for the hero's own strength"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.8.1",
     date: "2026-10-29",
     groups: [
