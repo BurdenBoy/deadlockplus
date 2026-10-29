@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="320" viewBox="0 0 240 320" role="img" aria-label="Телефон">
+<defs><pattern id="ht" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(28)"><circle cx="4" cy="4" r="1.75" fill="#000"/>
+    <animateTransform attributeName="patternTransform" type="translate" additive="sum" from="0 0" to="8 0" dur="6s" repeatCount="indefinite"/></pattern>
+  <pattern id="hl" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)"><circle cx="3.5" cy="3.5" r="1.25" fill="#f4e7d0"/></pattern>
+  <linearGradient id="htm" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".55" stop-color="#fff" stop-opacity=".15"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <mask id="htmask" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#htm)"/></mask>
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 .95  0 0 0 0 .88  0 0 0 .55 -.2"/></filter>
+  <filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="9"/></filter>
+  <filter id="drop" x="-10%" y="-10%" width="130%" height="140%"><feDropShadow dx="5" dy="6" stdDeviation="0" flood-color="#0d0d10" flood-opacity=".75"/></filter><clipPath id="all"><rect width="240" height="320" rx="7"/></clipPath></defs>
+<style>@font-face{font-family:DLSerif;src:url(data:font/woff2;base64,d09GMgABAAAAAAJEABAAAAAABHgAAAHpAAEz+AAAAAAAAAAAAAAAAAAAAAAAAAAAGhQbZBwqBmA/U1RBVEQANBEICoE4gSQBNgIkAwgLBgAEIAV8ByAMBxtKAwAeiXFMyVrmHvHwn93/t091Pbk/pPu+oAGVwdGsySSGUCSlcpeidK3nrzs+VRzEwbHtiyzgTAI/pYEEKQXe1rzA7hYIpztksS+yUqK/jUArIPjqNButJq1cvXGn9pOPOPtU7TJUlUCcdMyZp2pEIGRJo9AoKWUMNFRIIISQ9qRjjVf9bwDI6YziUnWkq9NebNDTOFQZM4ELqNU71/KqZWJ5flVHvsI/CEgpvYnhCiE0SigljJbOO+74swPvMyLRJmSdAqK+uBSFkKIdBEgoUCqEJtlwZBC8rKrws6pXBQhRVToQEsjIqGEZIIMk5Tw2X1Tf2nBEa2476ZCb7uvj6U+afTQ63nmgtn/a3o8+euipMZ5+u9mTZdzzRu9hd12zT+ugYUfl/Hy+YciZ757pujd+Ou39f18tZxym1rvPbeWIh2u3PF+76tj+S5s3z3vlvXLZraN6bv2qPOr1Sz6bf8a8+beVE68HrwpE75/5uV8/Paxj4W+NRfEjfDJky0b4ofH3FdILRUa9BILrl/Rkh64aYRFDSjULO4Fk4vQgrOosV4jcJGknD4JW7Viv2UBs02r0ebtm0213jOOc42RHONMexzjBcY53tuX1epSTrHM4Ak7w253mFD5VwXLVjUrts1Fd9mi+DgAAAA==) format('woff2')}@font-face{font-family:DLCond;src:url(data:font/woff2;base64,d09GMgABAAAAAAIgABAAAAAABGAAAAHHAAQaXgAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbdhwqBmA/U1RBVCoARBEICoE0gR0BNgIkAxALCgAEIAVMByAMBxslAwAeh3EssYqCAaOHCKK1sOrZPQgBamRwwIrZRQLaWLRxqJIn+dt5MVvXi5V23entRje42fH7dgg4sIQyTaO2NMBE8oNFGBCkN8zcYlZKEVegNiAJIRMCNXU2UBo1ZtIsdTct37VFXTkUhUBsXL1jiyoCIZdUhaqktRyd9ZZkACAkIcN1bPW0mXfVHZvvAJCnSnqlRDqV5mFi3xVLDIyBTwBgy+q9u7wz2tz8yf9fKfUJCEgjsp5oLxNCVaCxQGtp79p1uwKSgCinVyAhQ2OZQGO5/qiqShhtirlFIc4rXhULAkCIolAPIQdVlNALgwA5SEKIPK9ds06tSp3yijql2shqqsWiB7XmZ7XKNRekWgfcFpLuy9DzZvT8r+e5+d33dDeo56YDz9+fPXT2r5cM6nnkwdFj53t6cO++w+VOPS/3+6Ave4d+7P/pYrlRz+ujfgz7AX4L5C2XdGlx8fDSeoP+rWbZD/j86/Zq+F798E0r0s2sJ8oSCI6d0vMJaNIU8M7ZNTPirUEpgyavBHJ1JBDKKtNTJvIakrpoEtRW90llVS3NsNpau22y3A5zrbbeWuvsMsJWm6ySAcV1A1n5LIqjT/OzAA==) format('woff2')}@font-face{font-family:DLCondM;src:url(data:font/woff2;base64,d09GMgABAAAAAAHYABAAAAAAA9QAAAGAAAQaXgAAAAAAAAAAAAAAAAAAAAAAAAAAGhQbZBwqBmA/U1RBVCoANBEIClhiATYCJAMICwYABCAFUAcgDAcbwgIAngl2TGRScBMNt0TwtB9t3u5iqslEzz0kNERtNOLFKwUqDY8S+SVNXxi6+c9ZuO70pwNe6NtJr3igg38LKLHIAm8LJJG2MLQsqBv2N/xkEEXKRGAiIPzrjLfSdunIsTNXTG5+2N1qsgIVgWiq6Ww1FoFQJGOFsZKZCuZbLCQQQkh37Gprae4KACV+R6NIz9INnK67cc/2uA0caK01fd1GHLyqfPj/hVGbYgAB6VBej6WyEMYKzBRYKPXV1XcHJAFR4g9IyJgpC8xULEVRBA5WYvNqRIAQFVMQEigomIHFgAKSVMrYPGHMpNGPJo2aOGFowsD4a+Ov3J5w69r6f+tf3Vzbu9bM8SvWv/ZJT5d8ufQWrbsvgxGBMv/e8OezJ+9P2fN3bM7f4dPPtzXwbayvZpLO5PUYLYHgQ57eT8DMhpDKlN67lsYTyYTtCqNsvSzKOMlkehFMNBnLk+a7pEadHs0e6nRdjQZ16nU7q8YTDXq0yEC17ZSHo+pjeQkAAA==) format('woff2')}
+  .serif{font-family:DLSerif,Georgia,serif;font-weight:900}
+  .cond{font-family:DLCond,'Arial Narrow',sans-serif;font-weight:700}
+  .condm{font-family:DLCondM,'Arial Narrow',sans-serif;font-weight:500}
+  .sans{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif}
+  .float{animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .title{animation:title .9s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes title{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+  .tag{animation:tag .7s cubic-bezier(.3,1.5,.5,1) both}
+  @keyframes tag{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .ab{animation:ab 2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+  @keyframes ab{0%,70%,100%{transform:scale(1)}80%{transform:scale(1.12)}}
+  .rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+</style>
+<g clip-path="url(#all)"><g>
+  <defs><linearGradient id="cbc" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="#354448"/><stop offset="1" stop-color="#0b1517"/></linearGradient>
+    <linearGradient id="cfc" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#0d0d10" stop-opacity="0"/><stop offset="1" stop-color="#0d0d10" stop-opacity=".8"/></linearGradient>
+    <clipPath id="ccc"><rect width="240" height="320" rx="7.2"/></clipPath></defs>
+  <g clip-path="url(#ccc)">
+    <rect width="240" height="320" fill="url(#cbc)"/>
+    <path d="M241.5 134.4L249.3 149.0L255.2 165.7L232.9 174.2L234.2 190.8L233.2 209.1L209.4 209.6L208.6 232.9L194.4 243.6L173.6 240.5L157.0 243.6L140.0 240.0L123.8 242.6L108.1 238.6L91.0 239.1L80.9 223.8L64.7 220.8L55.4 208.7L42.6 200.3L28.1 191.7L34.7 172.7L34.2 159.3L5.0 150.2L-27.3 134.4L13.5 119.6L18.3 105.5L5.5 84.6L45.6 86.7L30.4 59.5L40.3 45.4L91.0 81.7L69.9 25.7L95.6 41.5L104.1 12.6L124.3 33.0L139.6 33.6L154.3 37.1L169.9 37.7L187.7 36.9L195.3 53.1L223.5 45.5L215.0 73.2L250.5 69.0L259.2 84.3L254.4 103.3L246.1 120.2Z" fill="#3fbf9a"/>
+    <path d="M247.4 134.4L265.3 151.0L226.2 158.3L244.2 178.6L249.7 199.3L226.9 204.4L224.3 224.0L208.7 232.9L188.8 233.7L177.8 251.1L158.3 249.1L140.9 252.7L122.6 258.6L109.9 230.6L90.3 240.8L68.8 244.9L52.7 236.2L29.7 233.8L40.0 202.2L36.4 187.1L23.3 177.2L2.2 167.4L1.8 150.6L-1.1 134.4L26.7 121.3L2.9 101.6L30.5 94.4L19.9 72.6L68.1 87.3L45.8 50.7L65.7 49.2L68.7 23.7L95.1 40.3L109.6 36.5L123.1 15.8L140.1 27.6L157.5 23.2L169.3 39.3L184.0 43.4L193.6 55.3L212.0 56.7L213.2 74.5L234.8 77.7L229.2 96.1L249.5 104.6L257.3 118.8Z" fill="url(#hl)" opacity=".16"/>
+    <path d="M30.7 65.9L24.6 61.3L23.1 41.7L33.1 35.3L39.7 29.0L49.3 41.2L45.1 48.4Z" fill="#3fbf9a"/><path d="M225.2 262.5L216.2 268.5L208.8 256.1L207.8 254.7L206.9 252.3L210.5 241.7L227.6 249.4Z" fill="#3fbf9a"/>
+    <rect width="240" height="320" fill="url(#ht)" opacity=".3"/>
+    <g filter="url(#drop)"><g class="" transform="translate(50.4 64.8) scale(5.800)" fill="none" stroke="#f4e7d0" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></g></g>
+    <rect width="240" height="320" fill="url(#cfc)"/>
+  </g>
+  <rect x="1" y="1" width="238" height="318" rx="7.2" fill="none" stroke="#000" stroke-opacity=".55" stroke-width="2"/>
+</g><g transform="translate(120.0 0)"><rect x="-57.6" y="-1" width="115.2" height="27.2" rx="2" fill="#4ff0a0" fill-opacity=".9" stroke="#0b3a26" stroke-width="1"/><text x="0" y="19.8" text-anchor="middle" class="cond" style="font-size:19.2px;letter-spacing:1px" fill="#0b2e1f">NEW</text></g></g>
+<rect x=".5" y=".5" width="239" height="319" rx="7" fill="none" stroke="#fff" stroke-opacity=".08"/>
+</svg>

@@ -34,7 +34,7 @@
     </svg>
     Deadlock <span>Plus</span>
   </a>
-  <span class="ver">v1.4 · Windows</span>
+  <span class="ver">v1.9 · Windows</span>
   <div class="links"><a href="#features">Функции</a><a href="#shots">Лаунчер</a><a href="#tools">Инструменты</a><a href="meta.html">Мета</a><a href="changelog.html">Изменения</a><a href="#faq">Вопросы</a></div>
   <a class="btn acc small" href="#download">Скачать</a>
 </div></nav>
@@ -51,10 +51,10 @@
   </div>
   <div class="wrap hero-grid">
     <div>
-      <div class="badge"><i></i>Версия 1.4 · Windows 10 / 11</div>
+      <div class="badge"><i></i>Версия 1.9 · Windows 10 / 11</div>
       <h1 class="title"><span data-letters>Deadlock</span><span class="p" data-letters>Plus</span></h1>
       <div class="tags"><span>Оверлей</span><span>Моды</span><span>AI-тренер</span></div>
-      <p class="lead">Оверлей для Deadlock: подсказывает, что и когда покупать, ставит моды с GameBanana и разбирает сыгранные матчи. На вопросы об игре отвечает AI-тренер — текстом или голосом.</p>
+      <p class="lead">Оверлей для Deadlock: подсказывает, что и когда покупать, следит за урной и мид-боссом, ставит моды с GameBanana и разбирает сыгранные матчи против твоего ранга. На вопросы об игре отвечает AI-тренер — текстом или голосом.</p>
       <div class="cta">
         <a class="btn acc big" href="https://github.com/BurdenBoy/deadlockplus/releases/latest/download/DeadlockPlus-Setup.exe">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10 4.5v7H3zM11 4.3 21 3v8.5H11zM3 12.5h7v7l-7-1zM11 12.5h10V21l-10-1.4z"/></svg>Скачать для Windows</a>
@@ -103,12 +103,14 @@
     <button data-shot="matches" data-cap="Матчи: история с оценками, местом в матче и графиком побед">Матчи</button>
     <button data-shot="review" data-cap="Разбор матча: что получилось, что исправить, фаза линии">Разбор матча</button>
     <button data-shot="meta" data-cap="Мета: тир-лист героев и лучшие предметы по рангу">Мета</button>
+    <button data-shot="planner" data-cap="Конструктор сборок: цена, винрейт предметов на герое и код для друга">Сборки</button>
+    <button data-shot="lfg" data-cap="Тимейты: объявления игроков с героями, рангом, регионом и режимом">Тимейты</button>
     <button data-shot="game" data-cap="Настройки игры: команды autoexec переключателями">Настройки игры</button>
     <button data-shot="xhair" data-cap="Прицел: редактор с предпросмотром и пресетами">Прицел</button>
     <button data-shot="settings" data-cap="Настройки: стиль, цвет, анимации и эффекты фона">Настройки</button>
     <button data-shot="news" data-cap="Что нового: изменения лаунчера и оверлея отдельно">Что нового</button>
   </div>
-  <div class="screen rv"><div class="inner"><img src="assets/shot-home.webp" alt="Лаунчер Deadlock Plus" id="shot"><div class="hots"><button class="hot" data-hot="home" style="left:0.98%;top:11.01%;width:16.97%;height:4.81%" aria-label="home"></button><button class="hot" data-hot="library" style="left:0.98%;top:19.87%;width:16.97%;height:4.81%" aria-label="library"></button><button class="hot" data-hot="store" style="left:0.98%;top:24.68%;width:16.97%;height:4.81%" aria-label="store"></button><button class="hot" data-hot="skins" style="left:0.98%;top:29.49%;width:16.97%;height:4.81%" aria-label="skins"></button><button class="hot" data-hot="matches" style="left:0.98%;top:38.48%;width:16.97%;height:4.81%" aria-label="matches"></button><button class="hot" data-hot="meta" style="left:0.98%;top:43.16%;width:16.97%;height:4.81%" aria-label="meta"></button><button class="hot" data-hot="game" style="left:0.98%;top:47.97%;width:16.97%;height:4.81%" aria-label="game"></button><button class="hot" data-hot="xhair" style="left:0.98%;top:52.66%;width:16.97%;height:4.81%" aria-label="xhair"></button><button class="hot" data-hot="#features" style="left:0.98%;top:61.65%;width:16.97%;height:4.81%" aria-label="#features"></button><button class="hot" data-hot="news" style="left:0.98%;top:66.33%;width:16.97%;height:4.81%" aria-label="news"></button><button class="hot" data-hot="settings" style="left:0.98%;top:71.14%;width:16.97%;height:4.81%" aria-label="settings"></button><button class="hot" data-hot="profiles" style="left:48.69%;top:1.14%;width:13.44%;height:4.30%" aria-label="profiles"></button><button class="hot round" data-hot="library" data-on="profiles" hidden style="left:71.64%;top:26.84%;width:2.79%;height:4.30%" aria-label="Закрыть"></button><button class="hot round" data-hot="home" data-on="news" hidden style="left:69.18%;top:18.23%;width:2.62%;height:4.05%" aria-label="Закрыть"></button><button class="hot" data-hot="home" data-on="news" hidden style="left:64.43%;top:77.34%;width:7.30%;height:4.30%" aria-label="Понятно"></button></div>
+  <div class="screen rv"><div class="inner"><img src="assets/shot-home.webp" alt="Лаунчер Deadlock Plus" id="shot"><div class="hots"><button class="hot" data-hot="home" style="left:0.98%;top:11.00%;width:16.97%;height:4.75%" aria-label="home"></button><button class="hot" data-hot="library" style="left:0.98%;top:19.93%;width:16.97%;height:4.81%" aria-label="library"></button><button class="hot" data-hot="store" style="left:0.98%;top:24.74%;width:16.97%;height:4.75%" aria-label="store"></button><button class="hot" data-hot="skins" style="left:0.98%;top:29.49%;width:16.97%;height:4.75%" aria-label="skins"></button><button class="hot" data-hot="matches" style="left:0.98%;top:38.42%;width:16.97%;height:4.75%" aria-label="matches"></button><button class="hot" data-hot="meta" style="left:0.98%;top:43.17%;width:16.97%;height:4.75%" aria-label="meta"></button><button class="hot" data-hot="planner" style="left:0.98%;top:47.93%;width:16.97%;height:4.75%" aria-label="planner"></button><button class="hot" data-hot="lfg" style="left:0.98%;top:52.68%;width:16.97%;height:4.75%" aria-label="lfg"></button><button class="hot" data-hot="game" style="left:0.98%;top:57.44%;width:16.97%;height:4.75%" aria-label="game"></button><button class="hot" data-hot="xhair" style="left:0.98%;top:62.19%;width:16.97%;height:4.75%" aria-label="xhair"></button><button class="hot" data-hot="#features" style="left:0.98%;top:71.12%;width:16.97%;height:4.75%" aria-label="#features"></button><button class="hot" data-hot="news" style="left:0.98%;top:75.87%;width:16.97%;height:4.75%" aria-label="news"></button><button class="hot" data-hot="settings" style="left:0.98%;top:80.63%;width:16.97%;height:4.75%" aria-label="settings"></button><button class="hot" data-hot="profiles" style="left:48.67%;top:1.08%;width:13.46%;height:4.30%" aria-label="profiles"></button><button class="hot round" data-hot="library" data-on="profiles" hidden style="left:71.72%;top:27.04%;width:2.62%;height:4.05%" aria-label="Закрыть"></button><button class="hot round" data-hot="home" data-on="news" hidden style="left:69.43%;top:12.39%;width:2.30%;height:3.54%" aria-label="Закрыть"></button><button class="hot" data-hot="home" data-on="news" hidden style="left:64.45%;top:83.33%;width:7.27%;height:4.41%" aria-label="Понятно"></button></div>
       <div class="demo-toast" aria-hidden="true"><span class="dt-ic"></span><div><b class="dt-t">Устанавливаю мод</b><small class="dt-s">Yamato remodel</small><i class="dt-bar"><i></i></i></div></div></div><div class="cap" id="shot-cap">Главная — мод недели и популярное с GameBanana</div></div>
 </div></section>
 
@@ -127,7 +129,7 @@
     <div class="stat"><small>Средний матч</small><b id="lv-dur">—</b></div>
     <div class="stat"><small>Самый сильный герой</small><b id="lv-hero">—</b><span id="lv-hero-s">&nbsp;</span></div>
   </div>
-  <div class="dl-count rv">Deadlock Plus скачали <b id="st-dl">—</b> раз · последняя версия <a href="changelog.html" id="st-ver">v1.4</a></div>
+  <div class="dl-count rv">Deadlock Plus скачали <b id="st-dl">—</b> раз · последняя версия <a href="changelog.html" id="st-ver">v1.9</a></div>
 </div></section>
 
 <section class="sec" id="tools" style="padding-top:20px"><div class="wrap">
@@ -187,6 +189,8 @@
     <details><summary>Как убрать все моды?</summary><p>Нажми «Без модов» в шапке лаунчера — игра запустится чистой. Или «Настройки → Вернуть игру как было»: моды уйдут из папки игры, библиотека останется.</p></details>
     <details><summary>После обновления Deadlock моды пропали</summary><p>Обновление может вернуть файлы игры. Лаунчер это заметит и покажет полосу «Моды перестали загружаться» с кнопкой «Вернуть моды».</p></details>
     <details><summary>Нужен ли ключ для AI-тренера?</summary><p>Да, свой ключ Claude API — он хранится зашифрованным на твоём компьютере. Всё остальное работает без ключа.</p></details>
+    <details><summary>Как обновить Deadlock Plus?</summary><p>Скачай новый установщик ниже и запусти его поверх старой версии — моды, настройки и вход в аккаунт сохранятся. Перед этим закрой Deadlock Plus: «Настройки → Выйти из Deadlock Plus».</p></details>
+    <details><summary>Как найти тимейтов?</summary><p>В лаунчере открой «Тимейты» и войди в аккаунт Deadlock Plus. Выбери героев, ранг, регион и режим — объявление провисит час. Профиль Steam виден, только если ты сам его включил.</p></details>
     <details><summary>Почему в «Матчах» пусто?</summary><p>Матчи берутся из deadlock-api — там они появляются после игр. Если ты играешь с другого аккаунта Steam, укажи его ID в разделе «Матчи».</p></details>
   </div>
 </div></section>
@@ -215,8 +219,8 @@
   <span>Deadlock — товарный знак Valve. Deadlock Plus не связан с Valve.</span>
 </div></footer>
 <script src="assets/changelog.js?v=5cc52937"></script>
-<script src="lang.js?v=064ce8d1"></script>
-<script src="assets/features.js?v=25e47295"></script>
+<script src="lang.js?v=5ca11d22"></script>
+<script src="assets/features.js?v=49065733"></script>
 <script src="fx.js?v=adaf25cf"></script>
 <script src="tools.js?v=328f9b78"></script>
 </body>
