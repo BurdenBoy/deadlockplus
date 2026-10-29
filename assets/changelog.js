@@ -2,6 +2,22 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.8.1",
+    date: "2026-10-29",
+    groups: [
+      {
+        kind: "new",
+        app: "launcher",
+        title: ["Уведомление о сыгранном матче", "Finished match notification"],
+        items: [
+          ["Через несколько минут после матча приходит уведомление Windows: победа или поражение, герой, оценка, место и очки", "A few minutes after a match a Windows notification shows the result, hero, grade, place and points"],
+          ["Клик по уведомлению открывает разбор этого матча", "Clicking it opens that match's review"],
+          ["Выключается в настройках лаунчера: «Уведомлять о сыгранном матче»", "Turn it off in launcher settings: «Notify about a finished match»"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.8.0",
     date: "2026-10-29",
     groups: [
