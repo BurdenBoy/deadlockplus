@@ -2,6 +2,24 @@
 // Every line is [Russian, English].
 window.CHANGELOG = [
   {
+    v: "1.8.3",
+    date: "2026-10-29",
+    groups: [
+      {
+        kind: "fix",
+        app: "both",
+        title: ["Исправления после проверки", "Fixes after a review pass"],
+        items: [
+          ["Разбор матча: «Откуда души» и средняя кривая ранга снова загружаются; зависшие запросы больше не крутят загрузку бесконечно", "Match review: «Where the souls came from» and the rank souls curve load again; stuck requests no longer spin forever"],
+          ["Конструктор: цифра у предмета сравнивает его с предметами того же слота и уровня; две колонки в окне от 860 px; названия не обрезаются", "Build planner: an item's number compares it with items of the same slot and tier; two columns from 860 px; names aren't cut off"],
+          ["Разведка в live-матче больше не перезапускает загрузку при каждом обновлении", "Scouting in a live match no longer restarts loading on every refresh"],
+          ["«Матчи»: победы — «В», поражения — «П»; подписи меняются вместе с языком", "«Matches»: labels follow a language switch"],
+          ["Оверлей: переведены оставшиеся строки настроек боковой панели", "Overlay: the remaining side-panel settings strings are translated"],
+        ],
+      },
+    ],
+  },
+  {
     v: "1.8.2",
     date: "2026-10-29",
     groups: [
